@@ -1,0 +1,39 @@
+#+TITLE: TODO list
+
+* [0/8] Control interface
+** TODO RGB LED Actuator
+** TODO Wheel Actuator
+** TODO IR Proximity Sensors
+** TODO IR Light Sensors
+** TODO IR Ground Sensors
+** TODO Ultrasonic Sensors
+** TODO Frontal Camera
+** TODO LIDAR
+** TODO Gripper
+
+* [0/11] Simulator
+** TODO Khepera IV entity
+** TODO QtOpenGL model
+** TODO Dynamics2D model
+** TODO RGB LED Actuator
+** TODO Wheel Actuator
+** TODO IR Proximity Sensors
+** TODO IR Light Sensors
+** TODO IR Ground Sensors
+** TODO Ultrasonic Sensors
+** TODO Frontal Camera
+** TODO LIDAR
+** TODO Gripper
+
+* [0/2] Real robot
+** TODO Toolchain support
+** TODO Main file
+** TODO RGB LED Actuator
+** TODO Wheel Actuator
+** TODO IR Proximity Sensors
+** TODO IR Light Sensors
+** TODO IR Ground Sensors
+** TODO Ultrasonic Sensors
+** TODO Frontal Camera
+** TODO LIDAR
+** TODO Gripper

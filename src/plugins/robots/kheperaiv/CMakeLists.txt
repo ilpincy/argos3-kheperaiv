@@ -1,0 +1,71 @@
+#
+# kheperaiv headers
+#
+# argos3/plugins/robots/kheperaiv/control_interface
+# set(ARGOS3_HEADERS_PLUGINS_ROBOTS_KHEPERAIV_CONTROLINTERFACE
+#   control_interface/ci_kheperaiv_communication_actuator.h
+#   control_interface/ci_kheperaiv_communication_sensor.h
+#   control_interface/ci_kheperaiv_controller.h
+#   control_interface/ci_kheperaiv_light_sensor.h)
+# argos3/plugins/robots/kheperaiv/simulator
+if(ARGOS_BUILD_FOR_SIMULATOR)
+  set(ARGOS3_HEADERS_PLUGINS_ROBOTS_KHEPERAIV_SIMULATOR
+    simulator/dynamics2d_kheperaiv_model.h
+    simulator/kheperaiv_entity.h
+    simulator/kheperaiv_measures.h)
+endif(ARGOS_BUILD_FOR_SIMULATOR)
+
+#
+# kheperaiv sources
+#
+# set(ARGOS3_SOURCES_PLUGINS_ROBOTS_KHEPERAIV
+#   ${ARGOS3_HEADERS_PLUGINS_ROBOTS_KHEPERAIV_CONTROLINTERFACE}
+#   control_interface/ci_kheperaiv_communication_actuator.cpp
+#   control_interface/ci_kheperaiv_communication_sensor.cpp
+#   control_interface/ci_kheperaiv_controller.cpp
+#   control_interface/ci_kheperaiv_light_sensor.cpp)
+
+if(ARGOS_BUILD_FOR_SIMULATOR)
+  set(ARGOS3_SOURCES_PLUGINS_ROBOTS_KHEPERAIV
+    ${ARGOS3_SOURCES_PLUGINS_ROBOTS_KHEPERAIV}
+    ${ARGOS3_HEADERS_PLUGINS_ROBOTS_KHEPERAIV_SIMULATOR}
+    simulator/dynamics2d_kheperaiv_model.cpp
+    simulator/kheperaiv_entity.cpp
+    simulator/kheperaiv_measures.cpp)
+  # Compile the graphical visualization only if the necessary libraries have been found
+  include(ARGoSCheckQTOpenGL)
+  if(ARGOS_COMPILE_QTOPENGL)
+    set(ARGOS3_HEADERS_PLUGINS_ROBOTS_KHEPERAIV_SIMULATOR
+      ${ARGOS3_HEADERS_PLUGINS_ROBOTS_KHEPERAIV_SIMULATOR}
+      simulator/qtopengl_kheperaiv.h)
+    set(ARGOS3_SOURCES_PLUGINS_ROBOTS_KHEPERAIV
+      ${ARGOS3_SOURCES_PLUGINS_ROBOTS_KHEPERAIV}
+      simulator/qtopengl_kheperaiv.h
+      simulator/qtopengl_kheperaiv.cpp)
+  endif(ARGOS_COMPILE_QTOPENGL)
+endif(ARGOS_BUILD_FOR_SIMULATOR)
+
+#
+# Create kheperaiv plugin
+#
+add_library(argos3plugin_${ARGOS_BUILD_FOR}_kheperaiv SHARED ${ARGOS3_SOURCES_PLUGINS_ROBOTS_KHEPERAIV})
+target_link_libraries(argos3plugin_${ARGOS_BUILD_FOR}_kheperaiv
+  argos3plugin_${ARGOS_BUILD_FOR}_genericrobot
+  argos3plugin_${ARGOS_BUILD_FOR}_dynamics2d)
+if(ARGOS_COMPILE_QTOPENGL)
+  target_link_libraries(argos3plugin_${ARGOS_BUILD_FOR}_kheperaiv argos3plugin_${ARGOS_BUILD_FOR}_qtopengl)
+endif(ARGOS_COMPILE_QTOPENGL)
+
+#
+# Installation
+#
+install(FILES ${ARGOS3_HEADERS_PLUGINS_ROBOTS_KHEPERAIV_CONTROLINTERFACE} DESTINATION include/argos3/plugins/robots/kheperaiv/control_interface)
+
+if(ARGOS_BUILD_FOR_SIMULATOR)
+  install(FILES ${ARGOS3_HEADERS_PLUGINS_ROBOTS_KHEPERAIV_SIMULATOR}      DESTINATION include/argos3/plugins/robots/kheperaiv/simulator)
+endif(ARGOS_BUILD_FOR_SIMULATOR)
+
+install(TARGETS argos3plugin_${ARGOS_BUILD_FOR}_kheperaiv
+  RUNTIME DESTINATION bin
+  LIBRARY DESTINATION lib/argos3
+  ARCHIVE DESTINATION lib/argos3)
