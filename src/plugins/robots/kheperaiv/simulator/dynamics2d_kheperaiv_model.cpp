@@ -5,6 +5,8 @@
  */
 
 #include "dynamics2d_kheperaiv_model.h"
+#include "kheperaiv_measures.h"
+
 #include <argos3/plugins/simulator/physics_engines/dynamics2d/dynamics2d_gripping.h>
 #include <argos3/plugins/simulator/physics_engines/dynamics2d/dynamics2d_engine.h>
 
@@ -14,11 +16,6 @@ namespace argos {
    /****************************************/
 
    static const Real KHEPERAIV_MASS                = 0.4f;
-
-   static const Real KHEPERAIV_RADIUS              = 0.035f;
-   static const Real KHEPERAIV_INTERWHEEL_DISTANCE = 0.053f;
-   static const Real KHEPERAIV_HEIGHT              = 0.086f;
-
    static const Real KHEPERAIV_MAX_FORCE           = 1.5f;
    static const Real KHEPERAIV_MAX_TORQUE          = 1.5f;
 
@@ -31,14 +28,14 @@ namespace argos {
    /****************************************/
 
    CDynamics2DKheperaIVModel::CDynamics2DKheperaIVModel(CDynamics2DEngine& c_engine,
-                                                CKheperaIVEntity& c_entity) :
+                                                        CKheperaIVEntity& c_entity) :
       CDynamics2DSingleBodyObjectModel(c_engine, c_entity),
       m_cKheperaIVEntity(c_entity),
       m_cWheeledEntity(m_cKheperaIVEntity.GetWheeledEntity()),
       m_cDiffSteering(c_engine,
                       KHEPERAIV_MAX_FORCE,
                       KHEPERAIV_MAX_TORQUE,
-                      KHEPERAIV_INTERWHEEL_DISTANCE),
+                      KHEPERAIV_WHEEL_DISTANCE),
       m_fCurrentWheelVelocity(m_cWheeledEntity.GetWheelVelocities()) {
       /* Create the body with initial position and orientation */
       cpBody* ptBody =
@@ -46,7 +43,7 @@ namespace argos {
                         cpBodyNew(KHEPERAIV_MASS,
                                   cpMomentForCircle(KHEPERAIV_MASS,
                                                     0.0f,
-                                                    KHEPERAIV_RADIUS + KHEPERAIV_RADIUS,
+                                                    KHEPERAIV_BASE_RADIUS + KHEPERAIV_BASE_RADIUS,
                                                     cpvzero)));
       const CVector3& cPosition = GetEmbodiedEntity().GetOriginAnchor().Position;
       ptBody->p = cpv(cPosition.GetX(), cPosition.GetY());
@@ -57,14 +54,14 @@ namespace argos {
       cpShape* ptShape =
          cpSpaceAddShape(GetDynamics2DEngine().GetPhysicsSpace(),
                          cpCircleShapeNew(ptBody,
-                                          KHEPERAIV_RADIUS,
+                                          KHEPERAIV_BASE_RADIUS,
                                           cpvzero));
       ptShape->e = 0.0; // No elasticity
       ptShape->u = 0.7; // Lots of friction
       /* Constrain the actual base body to follow the diff steering control */
       m_cDiffSteering.AttachTo(ptBody);
       /* Set the body so that the default methods work as expected */
-      SetBody(ptBody, KHEPERAIV_HEIGHT);
+      SetBody(ptBody, KHEPERAIV_BASE_TOP);
    }
 
    /****************************************/

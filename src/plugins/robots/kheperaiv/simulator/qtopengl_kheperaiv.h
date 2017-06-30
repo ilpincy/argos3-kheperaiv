@@ -18,6 +18,8 @@ namespace argos {
 #include <GL/gl.h>
 #endif
 
+#include <QOpenGLTexture>
+
 namespace argos {
 
    class CQTOpenGLKheperaIV {
@@ -47,6 +49,11 @@ namespace argos {
       void RenderLED();
 
    private:
+
+      /** Start of the texture index
+       * Order: top, bottom, side
+       */
+      QOpenGLTexture* m_pcTextures[3];
 
       /** Start of the display list index */
       GLuint m_unLists;
