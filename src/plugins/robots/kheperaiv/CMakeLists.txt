@@ -2,28 +2,32 @@
 # kheperaiv headers
 #
 # argos3/plugins/robots/kheperaiv/control_interface
-# set(ARGOS3_HEADERS_PLUGINS_ROBOTS_KHEPERAIV_CONTROLINTERFACE
-#   control_interface/ci_kheperaiv_communication_actuator.h
-#   control_interface/ci_kheperaiv_communication_sensor.h
-#   control_interface/ci_kheperaiv_controller.h
-#   control_interface/ci_kheperaiv_light_sensor.h)
+set(ARGOS3_HEADERS_PLUGINS_ROBOTS_KHEPERAIV_CONTROLINTERFACE
+  control_interface/ci_kheperaiv_encoder_sensor.h
+  control_interface/ci_kheperaiv_ground_sensor.h
+  control_interface/ci_kheperaiv_light_sensor.h
+  control_interface/ci_kheperaiv_proximity_sensor.h)
 # argos3/plugins/robots/kheperaiv/simulator
 if(ARGOS_BUILD_FOR_SIMULATOR)
   set(ARGOS3_HEADERS_PLUGINS_ROBOTS_KHEPERAIV_SIMULATOR
     simulator/dynamics2d_kheperaiv_model.h
     simulator/kheperaiv_entity.h
-    simulator/kheperaiv_measures.h)
+    simulator/kheperaiv_light_rotzonly_sensor.h
+    simulator/kheperaiv_measures.h
+    simulator/kheperaiv_ground_rotzonly_sensor.h
+    simulator/kheperaiv_proximity_default_sensor.h
+    simulator/qtopengl_kheperaiv.h)
 endif(ARGOS_BUILD_FOR_SIMULATOR)
 
 #
 # kheperaiv sources
 #
-# set(ARGOS3_SOURCES_PLUGINS_ROBOTS_KHEPERAIV
-#   ${ARGOS3_HEADERS_PLUGINS_ROBOTS_KHEPERAIV_CONTROLINTERFACE}
-#   control_interface/ci_kheperaiv_communication_actuator.cpp
-#   control_interface/ci_kheperaiv_communication_sensor.cpp
-#   control_interface/ci_kheperaiv_controller.cpp
-#   control_interface/ci_kheperaiv_light_sensor.cpp)
+set(ARGOS3_SOURCES_PLUGINS_ROBOTS_KHEPERAIV
+  ${ARGOS3_HEADERS_PLUGINS_ROBOTS_KHEPERAIV_CONTROLINTERFACE}
+  control_interface/ci_kheperaiv_encoder_sensor.cpp
+  control_interface/ci_kheperaiv_ground_sensor.cpp
+  control_interface/ci_kheperaiv_light_sensor.cpp
+  control_interface/ci_kheperaiv_proximity_sensor.cpp)
 
 if(ARGOS_BUILD_FOR_SIMULATOR)
   set(ARGOS3_SOURCES_PLUGINS_ROBOTS_KHEPERAIV
@@ -31,7 +35,11 @@ if(ARGOS_BUILD_FOR_SIMULATOR)
     ${ARGOS3_HEADERS_PLUGINS_ROBOTS_KHEPERAIV_SIMULATOR}
     simulator/dynamics2d_kheperaiv_model.cpp
     simulator/kheperaiv_entity.cpp
-    simulator/kheperaiv_measures.cpp)
+    simulator/kheperaiv_light_rotzonly_sensor.cpp
+    simulator/kheperaiv_measures.cpp
+    simulator/kheperaiv_ground_rotzonly_sensor.cpp
+    simulator/kheperaiv_proximity_default_sensor.cpp
+    simulator/qtopengl_kheperaiv.cpp)
   # Compile the graphical visualization only if the necessary libraries have been found
   include(ARGoSCheckQTOpenGL)
   if(ARGOS_COMPILE_QTOPENGL)

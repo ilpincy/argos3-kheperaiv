@@ -44,8 +44,7 @@ void CKheperaIVDiffusion::Init(TConfigurationNode& t_node) {
     * occurs.
     */
    m_pcWheels    = GetActuator<CCI_DifferentialSteeringActuator>("differential_steering");
-   // m_pcProximity = GetSensor  <CCI_KheperaIVProximitySensor    >("kheperaiv_proximity"  );
-   m_pcProximity = GetSensor  <CCI_ProximitySensor             >("proximity"            );
+   m_pcProximity = GetSensor  <CCI_KheperaIVProximitySensor    >("kheperaiv_proximity"  );
    /*
     * Parse the configuration file
     *
@@ -64,32 +63,31 @@ void CKheperaIVDiffusion::Init(TConfigurationNode& t_node) {
 
 void CKheperaIVDiffusion::ControlStep() {
    /* Get readings from proximity sensor */
-   // const CCI_KheperaIVProximitySensor::TReadings& tProxReads = m_pcProximity->GetReadings();
-   // const CCI_ProximitySensor::TReadings& tProxReads = m_pcProximity->GetReadings();
-   // /* Sum them together */
-   // CVector2 cAccumulator;
-   // for(size_t i = 0; i < tProxReads.size(); ++i) {
-   //    cAccumulator += CVector2(tProxReads[i].Value, tProxReads[i].Angle);
-   // }
-   // cAccumulator /= tProxReads.size();
-   // /* If the angle of the vector is small enough and the closest obstacle
-   //  * is far enough, continue going straight, otherwise curve a little
-   //  */
-   // CRadians cAngle = cAccumulator.Angle();
-   // if(m_cGoStraightAngleRange.WithinMinBoundIncludedMaxBoundIncluded(cAngle) &&
-   //    cAccumulator.Length() < m_fDelta ) {
-   //    /* Go straight */
-   //    m_pcWheels->SetLinearVelocity(m_fWheelVelocity, m_fWheelVelocity);
-   // }
-   // else {
-   //    /* Turn, depending on the sign of the angle */
-   //    if(cAngle.GetValue() > 0.0f) {
-   //       m_pcWheels->SetLinearVelocity(m_fWheelVelocity, 0.0f);
-   //    }
-   //    else {
-   //       m_pcWheels->SetLinearVelocity(0.0f, m_fWheelVelocity);
-   //    }
-   // }
+   const CCI_KheperaIVProximitySensor::TReadings& tProxReads = m_pcProximity->GetReadings();
+   /* Sum them together */
+   CVector2 cAccumulator;
+   for(size_t i = 0; i < tProxReads.size(); ++i) {
+      cAccumulator += CVector2(tProxReads[i].Value, tProxReads[i].Angle);
+   }
+   cAccumulator /= tProxReads.size();
+   /* If the angle of the vector is small enough and the closest obstacle
+    * is far enough, continue going straight, otherwise curve a little
+    */
+   CRadians cAngle = cAccumulator.Angle();
+   if(m_cGoStraightAngleRange.WithinMinBoundIncludedMaxBoundIncluded(cAngle) &&
+      cAccumulator.Length() < m_fDelta ) {
+      /* Go straight */
+      m_pcWheels->SetLinearVelocity(m_fWheelVelocity, m_fWheelVelocity);
+   }
+   else {
+      /* Turn, depending on the sign of the angle */
+      if(cAngle.GetValue() > 0.0f) {
+         m_pcWheels->SetLinearVelocity(m_fWheelVelocity, 0.0f);
+      }
+      else {
+         m_pcWheels->SetLinearVelocity(0.0f, m_fWheelVelocity);
+      }
+   }
 }
 
 /****************************************/

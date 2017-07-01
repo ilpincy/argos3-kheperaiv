@@ -1,6 +1,6 @@
 
 /**
- * @file <argos3/plugins/robots/kheperaiv/control_interface/ci_kheperaiv_base_ground_sensor.cpp>
+ * @file <argos3/plugins/robots/kheperaiv/control_interface/ci_kheperaiv_ground_sensor.cpp>
  *
  * @author Carlo Pinciroli <ilpincy@gmail.com>
  */
@@ -16,9 +16,9 @@ namespace argos {
    /****************************************/
    /****************************************/
 
-   CCI_KheperaIVBaseGroundSensor::CCI_KheperaIVBaseGroundSensor() :
+   CCI_KheperaIVGroundSensor::CCI_KheperaIVGroundSensor() :
       m_tReadings(8) {
-      // Set the values for the base ground sensor offset (taken from the CAD model, in cm)
+      // Set the values for the ground sensor offset (taken from the CAD model, in cm)
       m_tReadings[0].Offset.Set(0.06140,  0.01);
       m_tReadings[1].Offset.Set(0.02060,  0.0059);
       m_tReadings[2].Offset.Set(0.02060, -0.0059);
@@ -28,7 +28,7 @@ namespace argos {
    /****************************************/
    /****************************************/
 
-   const CCI_KheperaIVBaseGroundSensor::TReadings& CCI_KheperaIVBaseGroundSensor::GetReadings() const {
+   const CCI_KheperaIVGroundSensor::TReadings& CCI_KheperaIVGroundSensor::GetReadings() const {
      return m_tReadings;
    }
       
@@ -36,7 +36,7 @@ namespace argos {
    /****************************************/
 
    std::ostream& operator<<(std::ostream& c_os,
-                            const CCI_KheperaIVBaseGroundSensor::SReading& s_reading) {
+                            const CCI_KheperaIVGroundSensor::SReading& s_reading) {
       c_os << "Value=<" << s_reading.Value
            << ">, Offset=<" << s_reading.Offset << ">";
       return c_os;
@@ -46,7 +46,7 @@ namespace argos {
    /****************************************/
 
    std::ostream& operator<<(std::ostream& c_os,
-                            const CCI_KheperaIVBaseGroundSensor::TReadings& t_readings) {
+                            const CCI_KheperaIVGroundSensor::TReadings& t_readings) {
       if(! t_readings.empty()) {
          c_os << "{ " << t_readings[0].Value << " }";
          for(UInt32 i = 1; i < t_readings.size(); ++i) {
@@ -61,7 +61,7 @@ namespace argos {
    /****************************************/
 
 #ifdef ARGOS_WITH_LUA
-   void CCI_KheperaIVBaseGroundSensor::CreateLuaState(lua_State* pt_lua_state) {
+   void CCI_KheperaIVGroundSensor::CreateLuaState(lua_State* pt_lua_state) {
       CLuaUtility::OpenRobotStateTable(pt_lua_state, "ground");
       for(size_t i = 0; i < m_tReadings.size(); ++i) {
          CLuaUtility::StartTable(pt_lua_state, i+1                            );
@@ -77,7 +77,7 @@ namespace argos {
    /****************************************/
 
 #ifdef ARGOS_WITH_LUA
-   void CCI_KheperaIVBaseGroundSensor::ReadingsToLuaState(lua_State* pt_lua_state) {
+   void CCI_KheperaIVGroundSensor::ReadingsToLuaState(lua_State* pt_lua_state) {
       lua_getfield(pt_lua_state, -1, "ground");
       for(size_t i = 0; i < m_tReadings.size(); ++i) {
          lua_pushnumber(pt_lua_state, i+1                 );
