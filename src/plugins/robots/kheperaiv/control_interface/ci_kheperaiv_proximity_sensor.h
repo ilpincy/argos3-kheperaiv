@@ -7,15 +7,16 @@
  * The sensors are evenly spaced on a ring around the base of the robot.
  * The readings are normalized between 0 and 1, and are in the following
  * order (seeing the robot from TOP, the camera is the FRONT):
- *
- *          front
- *                   r
- *    l      0 7     i
- *    e    1     6   g
- *    f    2     5   h
- *    t      3 4     t
- *
- *          back   
+ * 
+ *      front
+ * 
+ * l      0      r
+ * e    1   7    i
+ * f  2       6  g
+ * t    3   5    h
+ *        4      t
+ * 
+ *       back   
  *
  * @author Carlo Pinciroli <ilpincy@gmail.com>
  */
