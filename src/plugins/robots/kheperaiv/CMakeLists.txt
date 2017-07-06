@@ -7,6 +7,11 @@ set(ARGOS3_HEADERS_PLUGINS_ROBOTS_KHEPERAIV_CONTROLINTERFACE
   control_interface/ci_kheperaiv_ground_sensor.h
   control_interface/ci_kheperaiv_light_sensor.h
   control_interface/ci_kheperaiv_proximity_sensor.h)
+if(BUZZ_FOUND)
+  set(ARGOS3_HEADERS_PLUGINS_ROBOTS_KHEPERAIV_CONTROLINTERFACE
+    ${ARGOS3_HEADERS_PLUGINS_ROBOTS_KHEPERAIV_CONTROLINTERFACE}
+    control_interface/buzz_controller_kheperaiv.h)
+endif(BUZZ_FOUND)
 # argos3/plugins/robots/kheperaiv/simulator
 if(ARGOS_BUILD_FOR_SIMULATOR)
   set(ARGOS3_HEADERS_PLUGINS_ROBOTS_KHEPERAIV_SIMULATOR
@@ -28,6 +33,11 @@ set(ARGOS3_SOURCES_PLUGINS_ROBOTS_KHEPERAIV
   control_interface/ci_kheperaiv_ground_sensor.cpp
   control_interface/ci_kheperaiv_light_sensor.cpp
   control_interface/ci_kheperaiv_proximity_sensor.cpp)
+if(BUZZ_FOUND)
+  set(ARGOS3_SOURCES_PLUGINS_ROBOTS_KHEPERAIV
+    ${ARGOS3_HEADERS_PLUGINS_ROBOTS_KHEPERAIV_CONTROLINTERFACE}
+    control_interface/buzz_controller_kheperaiv.cpp)
+endif(BUZZ_FOUND)
 
 if(ARGOS_BUILD_FOR_SIMULATOR)
   set(ARGOS3_SOURCES_PLUGINS_ROBOTS_KHEPERAIV
@@ -63,6 +73,9 @@ target_link_libraries(argos3plugin_${ARGOS_BUILD_FOR}_kheperaiv
 if(ARGOS_COMPILE_QTOPENGL)
   target_link_libraries(argos3plugin_${ARGOS_BUILD_FOR}_kheperaiv argos3plugin_${ARGOS_BUILD_FOR}_qtopengl)
 endif(ARGOS_COMPILE_QTOPENGL)
+if(BUZZ_FOUND)
+  target_link_libraries(argos3plugin_${ARGOS_BUILD_FOR}_kheperaiv ${BUZZ_LIBRARY})
+endif(BUZZ_FOUND)
 
 #
 # Installation

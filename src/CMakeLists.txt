@@ -12,7 +12,7 @@ set(CMAKE_MACOSX_RPATH 0)
 #
 # Set the path additional cmake files must be searched for
 #
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_SOURCE_DIR}/cmake)
+set(CMAKE_MODULE_PATH $ENV{CMAKE_MODULE_PATH} ${CMAKE_SOURCE_DIR}/cmake)
 
 #
 # Set CMake policies to select wanted behaviors

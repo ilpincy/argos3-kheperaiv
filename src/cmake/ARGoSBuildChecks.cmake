@@ -18,6 +18,11 @@ include(ARGoSCheckQTOpenGL)
 #
 find_package(Lua52 REQUIRED)
 
+find_package(Buzz)
+if(BUZZ_FOUND)
+  include_directories(${BUZZ_C_INCLUDE_DIR})
+endif(BUZZ_FOUND)
+
 #
 # Set ARGoS include dir
 #
