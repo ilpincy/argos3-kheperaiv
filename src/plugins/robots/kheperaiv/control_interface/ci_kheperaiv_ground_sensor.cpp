@@ -17,7 +17,7 @@ namespace argos {
    /****************************************/
 
    CCI_KheperaIVGroundSensor::CCI_KheperaIVGroundSensor() :
-      m_tReadings(8) {
+      m_tReadings(4) {
       // Set the values for the ground sensor offset (taken from the CAD model, in cm)
       m_tReadings[0].Offset.Set(0.06140,  0.01);
       m_tReadings[1].Offset.Set(0.02060,  0.0059);
