@@ -21,7 +21,7 @@ namespace argos {
    /****************************************/
 
    CCI_KheperaIVLightSensor::CCI_KheperaIVLightSensor() :
-      m_tReadings(24) {
+      m_tReadings(8) {
       for(size_t i = 0; i < 8; ++i) {
          m_tReadings[i].Angle = i * SPACING;
          m_tReadings[i].Angle.SignedNormalize();
