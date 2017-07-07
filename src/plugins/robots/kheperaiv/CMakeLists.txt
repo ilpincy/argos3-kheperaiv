@@ -74,7 +74,7 @@ if(ARGOS_COMPILE_QTOPENGL)
   target_link_libraries(argos3plugin_${ARGOS_BUILD_FOR}_kheperaiv argos3plugin_${ARGOS_BUILD_FOR}_qtopengl)
 endif(ARGOS_COMPILE_QTOPENGL)
 if(BUZZ_FOUND)
-  target_link_libraries(argos3plugin_${ARGOS_BUILD_FOR}_kheperaiv ${BUZZ_LIBRARY})
+  target_link_libraries(argos3plugin_${ARGOS_BUILD_FOR}_kheperaiv argos3plugin_${ARGOS_BUILD_FOR}_buzz ${BUZZ_LIBRARY})
 endif(BUZZ_FOUND)
 
 #
