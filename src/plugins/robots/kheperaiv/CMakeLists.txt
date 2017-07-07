@@ -35,7 +35,7 @@ set(ARGOS3_SOURCES_PLUGINS_ROBOTS_KHEPERAIV
   control_interface/ci_kheperaiv_proximity_sensor.cpp)
 if(BUZZ_FOUND)
   set(ARGOS3_SOURCES_PLUGINS_ROBOTS_KHEPERAIV
-    ${ARGOS3_HEADERS_PLUGINS_ROBOTS_KHEPERAIV_CONTROLINTERFACE}
+    ${ARGOS3_SOURCES_PLUGINS_ROBOTS_KHEPERAIV}
     control_interface/buzz_controller_kheperaiv.cpp)
 endif(BUZZ_FOUND)
 
