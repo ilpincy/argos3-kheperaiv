@@ -17,6 +17,14 @@
 #include <argos3/plugins/simulator/entities/proximity_sensor_equipped_entity.h>
 #include <argos3/plugins/simulator/entities/rab_equipped_entity.h>
 
+static CRadians ULTRASOUND_SENSOR_ANGLES[5] = {
+   CRadians::ZERO,
+   CRadians::PI_OVER_FOUR,
+   CRadians::PI_OVER_TWO,
+   -CRadians::PI_OVER_TWO,
+   -CRadians::PI_OVER_FOUR,
+};
+
 namespace argos {
 
    /****************************************/
@@ -30,6 +38,7 @@ namespace argos {
       m_pcLEDEquippedEntity(NULL),
       m_pcLightSensorEquippedEntity(NULL),
       m_pcProximitySensorEquippedEntity(NULL),
+      m_pcUltrasoundSensorEquippedEntity(NULL),
       m_pcRABEquippedEntity(NULL),
       m_pcWheeledEntity(NULL) {
    }
@@ -50,6 +59,7 @@ namespace argos {
       m_pcLEDEquippedEntity(NULL),
       m_pcLightSensorEquippedEntity(NULL),
       m_pcProximitySensorEquippedEntity(NULL),
+      m_pcUltrasoundSensorEquippedEntity(NULL),
       m_pcRABEquippedEntity(NULL),
       m_pcWheeledEntity(NULL) {
       try {
@@ -76,7 +86,7 @@ namespace argos {
          /* Proximity sensor equipped entity */
          m_pcProximitySensorEquippedEntity =
             new CProximitySensorEquippedEntity(this,
-                                               "proximity_0");
+                                               "proximity");
          AddComponent(*m_pcProximitySensorEquippedEntity);
          m_pcProximitySensorEquippedEntity->AddSensorRing(
             CVector3(0.0f, 0.0f, KHEPERAIV_IR_SENSORS_RING_ELEVATION),
@@ -85,6 +95,23 @@ namespace argos {
             KHEPERAIV_IR_SENSORS_RING_RANGE,
             8,
             m_pcEmbodiedEntity->GetOriginAnchor());
+         /* Ultrasound sensor equipped entity */
+         m_pcUltrasoundSensorEquippedEntity =
+            new CProximitySensorEquippedEntity(this,
+                                               "ultrasound");
+         AddComponent(*m_pcUltrasoundSensorEquippedEntity);
+         for(UInt32 i = 0; i < 5; ++i) {
+            m_pcUltrasoundSensorEquippedEntity->AddSensor(
+               CVector3(KHEPERAIV_ULTRASOUND_SENSORS_RING_RADIUS +
+                        KHEPERAIV_ULTRASOUND_SENSORS_RING_RANGE.GetMin(),
+                        CRadians::ZERO,
+                        ULTRASOUND_SENSOR_ANGLES[i]), // offset
+               CVector3(1.0,
+                        CRadians::ZERO,
+                        ULTRASOUND_SENSOR_ANGLES[i]), // direction
+               KHEPERAIV_ULTRASOUND_SENSORS_RING_RANGE.GetMax(),
+               m_pcEmbodiedEntity->GetOriginAnchor());
+         }
          /* Light sensor equipped entity */
          m_pcLightSensorEquippedEntity =
             new CLightSensorEquippedEntity(this,
@@ -170,7 +197,7 @@ namespace argos {
          /* Proximity sensor equipped entity */
          m_pcProximitySensorEquippedEntity =
             new CProximitySensorEquippedEntity(this,
-                                               "proximity_0");
+                                               "proximity");
          AddComponent(*m_pcProximitySensorEquippedEntity);
          m_pcProximitySensorEquippedEntity->AddSensorRing(
             CVector3(0.0f, 0.0f, KHEPERAIV_IR_SENSORS_RING_ELEVATION),
@@ -179,6 +206,23 @@ namespace argos {
             KHEPERAIV_IR_SENSORS_RING_RANGE,
             8,
             m_pcEmbodiedEntity->GetOriginAnchor());
+         /* Ultrasound sensor equipped entity */
+         m_pcUltrasoundSensorEquippedEntity =
+            new CProximitySensorEquippedEntity(this,
+                                               "ultrasound");
+         AddComponent(*m_pcUltrasoundSensorEquippedEntity);
+         for(UInt32 i = 0; i < 5; ++i) {
+            m_pcUltrasoundSensorEquippedEntity->AddSensor(
+               CVector3(KHEPERAIV_ULTRASOUND_SENSORS_RING_RADIUS +
+                        KHEPERAIV_ULTRASOUND_SENSORS_RING_RANGE.GetMin(),
+                        CRadians::PI_OVER_TWO,
+                        ULTRASOUND_SENSOR_ANGLES[i]), // offset
+               CVector3(1.0,
+                        CRadians::PI_OVER_TWO,
+                        ULTRASOUND_SENSOR_ANGLES[i]), // direction
+               KHEPERAIV_ULTRASOUND_SENSORS_RING_RANGE.GetMax(),
+               m_pcEmbodiedEntity->GetOriginAnchor());
+         }
          /* Light sensor equipped entity */
          m_pcLightSensorEquippedEntity =
             new CLightSensorEquippedEntity(this,
