@@ -16,7 +16,7 @@ namespace argos {
    /****************************************/
    /****************************************/
 
-   class CProximitySensorImpl : public CProximityDefaultSensor {
+   class CKheperaIVProximitySensorImpl : public CProximityDefaultSensor {
 
    public:
 
@@ -47,7 +47,7 @@ namespace argos {
    /****************************************/
 
    CKheperaIVProximityDefaultSensor::CKheperaIVProximityDefaultSensor() :
-      m_pcProximityImpl(new CProximitySensorImpl()) {}
+      m_pcProximityImpl(new CKheperaIVProximitySensorImpl()) {}
 
    /****************************************/
    /****************************************/

@@ -20,7 +20,7 @@ namespace argos {
 namespace argos {
 
    class CKheperaIVProximityDefaultSensor : public CCI_KheperaIVProximitySensor,
-                                          public CSimulatedSensor {
+                                            public CSimulatedSensor {
 
    public:
 
