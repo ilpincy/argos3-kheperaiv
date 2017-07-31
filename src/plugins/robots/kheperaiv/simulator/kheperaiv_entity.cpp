@@ -302,6 +302,8 @@ namespace argos {
    void CKheperaIVEntity::UpdateComponents() {
       if(m_pcLEDEquippedEntity->IsEnabled())
          m_pcLEDEquippedEntity->Update();
+      if(m_pcRABEquippedEntity->IsEnabled())
+         m_pcRABEquippedEntity->Update();
    }
 
    /****************************************/
