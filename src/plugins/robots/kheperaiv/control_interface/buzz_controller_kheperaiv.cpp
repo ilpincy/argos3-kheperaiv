@@ -287,3 +287,6 @@ buzzvm_state CBuzzControllerKheperaIV::RegisterFunctions() {
 /****************************************/
 
 REGISTER_CONTROLLER(CBuzzControllerKheperaIV, "buzz_controller_kheperaiv");
+
+#include <argos3/plugins/robots/kheperaiv/simulator/kheperaiv_entity.h>
+REGISTER_BUZZ_ROBOT(CKheperaIVEntity);
