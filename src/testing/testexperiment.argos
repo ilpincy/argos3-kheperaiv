@@ -22,7 +22,9 @@
         <differential_steering implementation="default" />
       </actuators>
       <sensors>
-        <kheperaiv_proximity implementation="default" show_rays="true" />
+        <kheperaiv_proximity implementation="default" show_rays="false" />
+        <kheperaiv_ultrasound implementation="default" show_rays="false" />
+        <kheperaiv_lidar implementation="default" num_readings="10" show_rays="true" />
       </sensors>
       <params alpha="7.5" delta="0.1" velocity="5" />
     </kheperaiv_diffusion_controller>
@@ -59,7 +61,7 @@
     <distribute>
       <position method="uniform" min="-2,-2,0" max="2,2,0" />
       <orientation method="gaussian" mean="0,0,0" std_dev="360,0,0" />
-      <entity quantity="10" max_trials="100">
+      <entity quantity="1" max_trials="100">
         <kheperaiv id="khiv">
           <controller config="khivdc" />
         </kheperaiv>

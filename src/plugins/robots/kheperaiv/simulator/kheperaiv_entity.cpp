@@ -112,6 +112,11 @@ namespace argos {
                KHEPERAIV_ULTRASOUND_SENSORS_RING_RANGE.GetMax(),
                m_pcEmbodiedEntity->GetOriginAnchor());
          }
+         /* LIDAR sensor equipped entity */
+         m_pcLIDARSensorEquippedEntity =
+            new CProximitySensorEquippedEntity(this,
+                                               "lidar");
+         AddComponent(*m_pcLIDARSensorEquippedEntity);
          /* Light sensor equipped entity */
          m_pcLightSensorEquippedEntity =
             new CLightSensorEquippedEntity(this,
@@ -223,6 +228,11 @@ namespace argos {
                KHEPERAIV_ULTRASOUND_SENSORS_RING_RANGE.GetMax(),
                m_pcEmbodiedEntity->GetOriginAnchor());
          }
+         /* LIDAR sensor equipped entity */
+         m_pcLIDARSensorEquippedEntity =
+            new CProximitySensorEquippedEntity(this,
+                                               "lidar");
+         AddComponent(*m_pcLIDARSensorEquippedEntity);
          /* Light sensor equipped entity */
          m_pcLightSensorEquippedEntity =
             new CLightSensorEquippedEntity(this,

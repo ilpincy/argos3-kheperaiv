@@ -5,6 +5,7 @@
 set(ARGOS3_HEADERS_PLUGINS_ROBOTS_KHEPERAIV_CONTROLINTERFACE
   control_interface/ci_kheperaiv_encoder_sensor.h
   control_interface/ci_kheperaiv_ground_sensor.h
+  control_interface/ci_kheperaiv_lidar_sensor.h
   control_interface/ci_kheperaiv_light_sensor.h
   control_interface/ci_kheperaiv_proximity_sensor.h
   control_interface/ci_kheperaiv_ultrasound_sensor.h)
@@ -21,6 +22,7 @@ if(ARGOS_BUILD_FOR_SIMULATOR)
     simulator/kheperaiv_light_rotzonly_sensor.h
     simulator/kheperaiv_measures.h
     simulator/kheperaiv_ground_rotzonly_sensor.h
+    simulator/kheperaiv_lidar_default_sensor.h
     simulator/kheperaiv_proximity_default_sensor.h
     simulator/kheperaiv_ultrasound_default_sensor.h
     simulator/qtopengl_kheperaiv.h)
@@ -33,6 +35,7 @@ set(ARGOS3_SOURCES_PLUGINS_ROBOTS_KHEPERAIV
   ${ARGOS3_HEADERS_PLUGINS_ROBOTS_KHEPERAIV_CONTROLINTERFACE}
   control_interface/ci_kheperaiv_encoder_sensor.cpp
   control_interface/ci_kheperaiv_ground_sensor.cpp
+  control_interface/ci_kheperaiv_lidar_sensor.cpp
   control_interface/ci_kheperaiv_light_sensor.cpp
   control_interface/ci_kheperaiv_proximity_sensor.cpp
   control_interface/ci_kheperaiv_ultrasound_sensor.cpp)
@@ -51,6 +54,7 @@ if(ARGOS_BUILD_FOR_SIMULATOR)
     simulator/kheperaiv_light_rotzonly_sensor.cpp
     simulator/kheperaiv_measures.cpp
     simulator/kheperaiv_ground_rotzonly_sensor.cpp
+    simulator/kheperaiv_lidar_default_sensor.cpp
     simulator/kheperaiv_proximity_default_sensor.cpp
     simulator/kheperaiv_ultrasound_default_sensor.cpp
     simulator/qtopengl_kheperaiv.cpp)

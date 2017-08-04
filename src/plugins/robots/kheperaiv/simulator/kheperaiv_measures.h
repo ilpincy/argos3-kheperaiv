@@ -34,4 +34,9 @@ extern const CVector2 KHEPERAIV_IR_SENSORS_GROUND_OFFSET[4];
 
 extern const CVector3 KHEPERAIV_LEDS_OFFSET[3];
 
+extern const Real KHEPERAIV_LIDAR_ELEVATION;
+extern const Real KHEPERAIV_LIDAR_SENSORS_FAN_RADIUS;
+extern const CRadians KHEPERAIV_LIDAR_ANGLE_SPAN;
+extern const CRange<Real> KHEPERAIV_LIDAR_SENSORS_RING_RANGE;
+
 #endif
