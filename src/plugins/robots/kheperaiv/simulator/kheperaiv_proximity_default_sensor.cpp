@@ -40,7 +40,7 @@ namespace argos {
             return 0.0;
          }
          else {
-            return 4.14*exp(-33)-.085;
+            return 4.14*exp(-33.0*f_distance)-.085;
          }
       }
 
