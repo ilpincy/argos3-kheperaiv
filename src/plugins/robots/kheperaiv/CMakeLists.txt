@@ -24,8 +24,7 @@ if(ARGOS_BUILD_FOR_SIMULATOR)
     simulator/kheperaiv_ground_rotzonly_sensor.h
     simulator/kheperaiv_lidar_default_sensor.h
     simulator/kheperaiv_proximity_default_sensor.h
-    simulator/kheperaiv_ultrasound_default_sensor.h
-    simulator/qtopengl_kheperaiv.h)
+    simulator/kheperaiv_ultrasound_default_sensor.h)
 endif(ARGOS_BUILD_FOR_SIMULATOR)
 
 #
@@ -56,8 +55,7 @@ if(ARGOS_BUILD_FOR_SIMULATOR)
     simulator/kheperaiv_ground_rotzonly_sensor.cpp
     simulator/kheperaiv_lidar_default_sensor.cpp
     simulator/kheperaiv_proximity_default_sensor.cpp
-    simulator/kheperaiv_ultrasound_default_sensor.cpp
-    simulator/qtopengl_kheperaiv.cpp)
+    simulator/kheperaiv_ultrasound_default_sensor.cpp)
   # Compile the graphical visualization only if the necessary libraries have been found
   include(ARGoSCheckQTOpenGL)
   if(ARGOS_COMPILE_QTOPENGL)
