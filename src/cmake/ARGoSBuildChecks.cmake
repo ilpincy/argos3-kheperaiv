@@ -17,9 +17,9 @@ include(ARGoSCheckQTOpenGL)
 # Find Lua
 #
 find_package(Lua52)
-if(LUA_FOUND)
+if(LUA52_FOUND)
   include_directories(${LUA_INCLUDE_DIR})
-endif(LUA_FOUND)
+endif(LUA52_FOUND)
 
 find_package(Buzz)
 if(BUZZ_FOUND)
