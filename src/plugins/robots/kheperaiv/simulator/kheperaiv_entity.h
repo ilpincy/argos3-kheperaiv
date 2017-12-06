@@ -16,6 +16,7 @@ namespace argos {
    class CLightSensorEquippedEntity;
    class CProximitySensorEquippedEntity;
    class CRABEquippedEntity;
+   class CBatteryEquippedEntity;
 }
 
 #include <argos3/core/simulator/entity/composable_entity.h>
@@ -38,7 +39,10 @@ namespace argos {
                        const CVector3& c_position = CVector3(),
                        const CQuaternion& c_orientation = CQuaternion(),
                        Real f_rab_range = 3.0f,
-                       size_t un_rab_data_size = 50);
+                       size_t un_rab_data_size = 50,
+                       UInt16 un_bat_full_capacity = 3400,
+                       Real f_bat_ideal_discharge = 0,
+                       Real f_bat_moving_discharge = 0);
       
       virtual void Init(TConfigurationNode& t_tree);
       virtual void Reset();
@@ -86,6 +90,10 @@ namespace argos {
          return *m_pcWheeledEntity;
       }
 
+      inline CBatteryEquippedEntity& GetBatterySensorEquippedEntity() {
+          return *m_pcBatteryEquippedEntity;
+      }
+
       virtual std::string GetTypeDescription() const {
          return "kheperaiv";
       }
@@ -106,6 +114,7 @@ namespace argos {
       CProximitySensorEquippedEntity* m_pcLIDARSensorEquippedEntity;
       CRABEquippedEntity*             m_pcRABEquippedEntity;
       CWheeledEntity*                 m_pcWheeledEntity;
+      CBatteryEquippedEntity*         m_pcBatteryEquippedEntity;
    };
 
 }

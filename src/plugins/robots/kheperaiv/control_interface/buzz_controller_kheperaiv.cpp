@@ -103,7 +103,8 @@ int BuzzSetLEDs(buzzvm_t vm) {
 CBuzzControllerKheperaIV::CBuzzControllerKheperaIV() :
    m_pcWheels(NULL),
    m_pcLEDs(NULL),
-   m_pcProximity(NULL) {
+   m_pcProximity(NULL),
+   m_pcBattery(NULL) {
 }
 
 /****************************************/
@@ -131,6 +132,11 @@ void CBuzzControllerKheperaIV::Init(TConfigurationNode& t_node) {
          m_pcProximity = GetSensor<CCI_KheperaIVProximitySensor>("kheperaiv_proximity");
       }
       catch(CARGoSException& ex) {}
+      try {
+         m_pcBattery = GetSensor<CCI_BatterySensor>("battery");
+      }
+      catch(CARGoSException& ex) {}
+
       /* Initialize the rest */
       CBuzzController::Init(t_node);
    }
@@ -171,6 +177,22 @@ void CBuzzControllerKheperaIV::UpdateSensors() {
          /* Store read table in the proximity table */
          TablePut(tProxTable, i, tProxRead);
       }
+   }
+
+   /*
+    * Update Battery sensor table
+    */
+   if(m_pcBattery != NULL) {
+       /* Create empty battery table */
+       buzzvm_pushs(m_tBuzzVM, buzzvm_string_register(m_tBuzzVM, "battery", 1));
+       buzzvm_pusht(m_tBuzzVM);
+       buzzobj_t tBatTable = buzzvm_stack_at(m_tBuzzVM, 1);
+       buzzvm_gstore(m_tBuzzVM);
+       /* Get Battery readings */
+       const CCI_BatterySensor::SReading& sBatReads = m_pcBattery->GetReading();
+      /* Fill in the table */
+      TablePut(tBatTable, "level", sBatReads.Level);
+      TablePut(tBatTable, "time", sBatReads.TimeRemaining);
    }
 }
 

@@ -4,6 +4,7 @@
 #include <buzz/argos/buzz_controller.h>
 #include <argos3/plugins/robots/generic/control_interface/ci_differential_steering_actuator.h>
 #include <argos3/plugins/robots/generic/control_interface/ci_leds_actuator.h>
+#include <argos3/plugins/robots/generic/control_interface/ci_battery_sensor.h>
 #include <argos3/plugins/robots/kheperaiv/control_interface/ci_kheperaiv_proximity_sensor.h>
 
 using namespace argos;
@@ -61,6 +62,9 @@ protected:
    CCI_LEDsActuator* m_pcLEDs;
    /* Pointer to the proximity sensor */
    CCI_KheperaIVProximitySensor* m_pcProximity;
+   /* Pointer to the battery sensor */
+   CCI_BatterySensor* m_pcBattery;
+
 
    /* The turning parameters. */
    SWheelTurningParams m_sWheelTurningParams;
