@@ -188,19 +188,11 @@ void CBuzzControllerKheperaIV::UpdateSensors() {
        buzzvm_pusht(m_tBuzzVM);
        buzzobj_t tBatTable = buzzvm_stack_at(m_tBuzzVM, 1);
        buzzvm_gstore(m_tBuzzVM);
-       /* Get proximity readings */
+       /* Get Battery readings */
        const CCI_BatterySensor::SReading& sBatReads = m_pcBattery->GetReading();
-       /* Fill into the proximity table */
-       buzzobj_t tBatRead;
-      /* Create table for i-th read */
-      buzzvm_pusht(m_tBuzzVM);
-      tBatRead = buzzvm_stack_at(m_tBuzzVM, 1);
-      buzzvm_pop(m_tBuzzVM);
-      /* Fill in the read */
-      TablePut(tBatRead, "level", sBatReads.Level);
-      TablePut(tBatRead, "time", sBatReads.TimeRemaining);
-      /* Store read table in the proximity table */
-      TablePut(tBatTable,0, tBatRead);
+      /* Fill in the table */
+      TablePut(tBatTable, "level", sBatReads.Level);
+      TablePut(tBatTable, "time", sBatReads.TimeRemaining);
    }
 }
 
