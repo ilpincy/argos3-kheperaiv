@@ -8,6 +8,7 @@
 #define KHEPERAIV_ENTITY_H
 
 namespace argos {
+   class CBatteryEquippedEntity;
    class CControllableEntity;
    class CEmbodiedEntity;
    class CKheperaIVEntity;
@@ -38,7 +39,8 @@ namespace argos {
                        const CVector3& c_position = CVector3(),
                        const CQuaternion& c_orientation = CQuaternion(),
                        Real f_rab_range = 3.0f,
-                       size_t un_rab_data_size = 50);
+                       size_t un_rab_data_size = 50,
+                       const std::string& str_bat_model = "");
       
       virtual void Init(TConfigurationNode& t_tree);
       virtual void Reset();
@@ -86,6 +88,10 @@ namespace argos {
          return *m_pcWheeledEntity;
       }
 
+      inline CBatteryEquippedEntity& GetBatterySensorEquippedEntity() {
+          return *m_pcBatteryEquippedEntity;
+      }
+
       virtual std::string GetTypeDescription() const {
          return "kheperaiv";
       }
@@ -106,6 +112,7 @@ namespace argos {
       CProximitySensorEquippedEntity* m_pcLIDARSensorEquippedEntity;
       CRABEquippedEntity*             m_pcRABEquippedEntity;
       CWheeledEntity*                 m_pcWheeledEntity;
+      CBatteryEquippedEntity*         m_pcBatteryEquippedEntity;
    };
 
 }
