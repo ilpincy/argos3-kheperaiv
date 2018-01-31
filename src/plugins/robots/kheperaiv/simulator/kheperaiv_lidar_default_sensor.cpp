@@ -113,7 +113,8 @@ namespace argos {
                                                             sIntersection.TOnRay);
                m_pcControllableEntity->AddCheckedRay(true, cScanningRay);
             }
-            m_tReadings[i] = cScanningRay.GetDistance(sIntersection.TOnRay) * 0.01;
+            /* The actual reading is in cm */
+            m_tReadings[i] = cScanningRay.GetDistance(sIntersection.TOnRay) * 100.0;
          }
          else {
             /* No intersection */
