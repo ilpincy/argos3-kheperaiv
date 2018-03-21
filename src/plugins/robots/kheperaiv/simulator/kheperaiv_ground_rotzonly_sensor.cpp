@@ -113,12 +113,12 @@ namespace argos {
    /****************************************/
 
    REGISTER_SENSOR(CKheperaIVGroundRotZOnlySensor,
-                   "kheperaiv__ground", "rot_z_only",
+                   "kheperaiv_ground", "rot_z_only",
                    "Carlo Pinciroli [ilpincy@gmail.com]",
                    "1.0",
                    "The KheperaIV  ground sensor.",
                    "This sensor accesses the KheperaIV  ground sensor. For a complete description\n"
-                   "of its usage, refer to the ci_kheperaiv__ground_sensor.h interface. For the XML\n"
+                   "of its usage, refer to the ci_kheperaiv_ground_sensor.h interface. For the XML\n"
                    "configuration, refer to the default ground sensor.\n",
                    "Usable"
 		  );

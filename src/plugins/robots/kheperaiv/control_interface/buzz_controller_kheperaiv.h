@@ -4,7 +4,11 @@
 #include <buzz/argos/buzz_controller.h>
 #include <argos3/plugins/robots/generic/control_interface/ci_differential_steering_actuator.h>
 #include <argos3/plugins/robots/generic/control_interface/ci_leds_actuator.h>
+#include <argos3/plugins/robots/kheperaiv/control_interface/ci_kheperaiv_ground_sensor.h>
 #include <argos3/plugins/robots/kheperaiv/control_interface/ci_kheperaiv_proximity_sensor.h>
+#include <argos3/plugins/robots/kheperaiv/control_interface/ci_kheperaiv_light_sensor.h>
+#include <argos3/plugins/robots/kheperaiv/control_interface/ci_kheperaiv_ultrasound_sensor.h>
+#include <argos3/plugins/robots/kheperaiv/control_interface/ci_kheperaiv_lidar_sensor.h>
 
 using namespace argos;
 
@@ -59,8 +63,16 @@ protected:
    CCI_DifferentialSteeringActuator* m_pcWheels;
    /* Pointer to the LEDs actuator */
    CCI_LEDsActuator* m_pcLEDs;
+   /* Pointer to the ground sensor */
+   CCI_KheperaIVGroundSensor* m_pcGround;
    /* Pointer to the proximity sensor */
    CCI_KheperaIVProximitySensor* m_pcProximity;
+   /* Pointer to the light sensor */
+   CCI_KheperaIVLightSensor* m_pcLight;
+   /* Pointer to the ultrasound sensor */
+   CCI_KheperaIVUltrasoundSensor* m_pcUltrasound;
+   /* Pointer to the lidar sensor */
+   CCI_KheperaIVLIDARSensor* m_pcLIDAR;
 
    /* The turning parameters. */
    SWheelTurningParams m_sWheelTurningParams;

@@ -97,7 +97,7 @@ namespace argos {
                    "The Khepera IV ultrasound sensor.",
                    "This sensor accesses the Khepera IV ultrasound sensor. For a complete description\n"
                    "of its usage, refer to the ci_kheperaiv_ultrasound_sensor.h interface. For the XML\n"
-                   "configuration, refer to the default ultrasound sensor.\n",
+                   "configuration, refer to the default proximity sensor.\n",
                    "Usable"
 		  );
 
