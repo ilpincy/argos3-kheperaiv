@@ -187,21 +187,21 @@ namespace argos {
          (with no base, cause it's not visible anyway) */
       glBegin(GL_TRIANGLES);
       /* North */
-      glVertex3f( 0.000,  0.000, 0.004);
-      glVertex3f( 0.004, -0.004, 0.000);
-      glVertex3f( 0.004,  0.004, 0.000);
+      glVertex3f( 0.000,  0.000, 0.015);
+      glVertex3f( 0.015, -0.015, 0.000);
+      glVertex3f( 0.015,  0.015, 0.000);
       /* South */
-      glVertex3f( 0.000,  0.000, 0.004);
-      glVertex3f(-0.004,  0.004, 0.000);
-      glVertex3f(-0.004, -0.004, 0.000);
+      glVertex3f( 0.000,  0.000, 0.015);
+      glVertex3f(-0.015,  0.015, 0.000);
+      glVertex3f(-0.015, -0.015, 0.000);
       /* West */
-      glVertex3f( 0.000,  0.000, 0.004);
-      glVertex3f( 0.004,  0.004, 0.000);
-      glVertex3f(-0.004,  0.004, 0.000);
+      glVertex3f( 0.000,  0.000, 0.015);
+      glVertex3f( 0.015,  0.015, 0.000);
+      glVertex3f(-0.015,  0.015, 0.000);
       /* East */
-      glVertex3f( 0.000,  0.000, 0.004);
-      glVertex3f(-0.004, -0.004, 0.000);
-      glVertex3f( 0.004, -0.004, 0.000);
+      glVertex3f( 0.000,  0.000, 0.015);
+      glVertex3f(-0.015, -0.015, 0.000);
+      glVertex3f( 0.015, -0.015, 0.000);
       glEnd();
    }
 
