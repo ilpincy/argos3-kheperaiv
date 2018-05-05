@@ -367,7 +367,7 @@ void CBuzzControllerKheperaIV::SetWheelSpeedsFromVector(const CVector2& c_headin
    /* Get the length of the heading vector */
    Real fHeadingLength = c_heading.Length();
    /* Clamp the speed so that it's not greater than MaxSpeed */
-   Real fBaseAngularWheelSpeed = Min<Real>(fHeadingLength, m_sWheelTurningParams.MaxSpeed);
+   Real fBaseWheelSpeed = Min<Real>(fHeadingLength, m_sWheelTurningParams.MaxSpeed);
    /* State transition logic */
    if(m_sWheelTurningParams.TurningMechanism == SWheelTurningParams::HARD_TURN) {
       if(Abs(cHeadingAngle) <= m_sWheelTurningParams.SoftTurnOnAngleThreshold) {
@@ -395,15 +395,15 @@ void CBuzzControllerKheperaIV::SetWheelSpeedsFromVector(const CVector2& c_headin
    switch(m_sWheelTurningParams.TurningMechanism) {
       case SWheelTurningParams::NO_TURN: {
          /* Just go straight */
-         fSpeed1 = fBaseAngularWheelSpeed;
-         fSpeed2 = fBaseAngularWheelSpeed;
+         fSpeed1 = fBaseWheelSpeed;
+         fSpeed2 = fBaseWheelSpeed;
          break;
       }
       case SWheelTurningParams::SOFT_TURN: {
          /* Both wheels go straight, but one is faster than the other */
          Real fSpeedFactor = (m_sWheelTurningParams.HardTurnOnAngleThreshold - Abs(cHeadingAngle)) / m_sWheelTurningParams.HardTurnOnAngleThreshold;
-         fSpeed1 = fBaseAngularWheelSpeed - fBaseAngularWheelSpeed * (1.0 - fSpeedFactor);
-         fSpeed2 = fBaseAngularWheelSpeed + fBaseAngularWheelSpeed * (1.0 - fSpeedFactor);
+         fSpeed1 = fBaseWheelSpeed - fBaseWheelSpeed * (1.0 - fSpeedFactor);
+         fSpeed2 = fBaseWheelSpeed + fBaseWheelSpeed * (1.0 - fSpeedFactor);
          break;
       }
       case SWheelTurningParams::HARD_TURN: {
