@@ -29,7 +29,7 @@ endif(ARGOS_BUILD_FOR_SIMULATOR)
 # argos3/plugins/robots/kheperaiv/real_robot
 if(ARGOS_BUILD_FOR STREQUAL "khiv")
   set(ARGOS3_HEADERS_PLUGINS_ROBOTS_KHEPERAIV_REALROBOT
-    )
+    real_robot/real_kheperaiv.h)
 endif(ARGOS_BUILD_FOR STREQUAL "khiv")
 
 #
@@ -77,7 +77,7 @@ if(ARGOS_BUILD_FOR STREQUAL "khiv")
   set(ARGOS3_SOURCES_PLUGINS_ROBOTS_KHEPERAIV
     ${ARGOS3_SOURCES_PLUGINS_ROBOTS_KHEPERAIV}
     ${ARGOS3_HEADERS_PLUGINS_ROBOTS_KHEPERAIV_REALROBOT}
-    )
+    real_robot/real_kheperaiv.cpp)
 endif(ARGOS_BUILD_FOR STREQUAL "khiv")
 
 #
