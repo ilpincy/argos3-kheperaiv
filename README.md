@@ -18,11 +18,36 @@ This code allows you to simulate the Khepera IV in ARGoS3, and to run ARGoS3 con
 
 First, you need to install the [light toolchain provided by K-Team](http://ftp.k-team.com/KheperaIV/software/Gumstix%20COM%20Y/light_tools/poky-glibc-i686-khepera4-image-cortexa8hf-vfp-neon-toolchain-1.8.sh).
 
-Next, run these commands:
+Next, you need to designate a folder where you'll install all the ARGoS-related binaries. Let's call this folder `${INSTALLPREFIX}`. Make sure the folder exists and it is writable by your user:
 
+    $ mkdir -p ${INSTALLPREFIX}
+
+To make ARGoS controllers work on the Khepera IV, you need to crosscompile the ARGoS core and the Khepera IV plugin. In the following, we will assume that you have three directories:
+
+| Variable        | Meaning                                     |
+|-----------------|---------------------------------------------|
+| `INSTALLPREFIX` | Where the compile code is installed         |
+| `ARGOS3PATH`    | Where the ARGoS3 core code is stored        |
+| `KHIVPATH`      | Where the the code of this plugin is stored |
+
+### Crosscompiling the ARGoS core ###
+
+To compile the ARGoS core for the Khepera IV, follow these instructions:
+
+    $ cd ${ARGOS3PATH}
     $ mkdir build_khiv
     $ cd build_khiv
-    $ cmake -DCMAKE_TOOLCHAIN_FILE=../src/cmake/KheperaIV.cmake ../src
-    $ make
+    $ cmake -DCMAKE_TOOLCHAIN_FILE=${KHIVPATH}/src/cmake/TargetKheperaIV.cmake -DCMAKE_INSTALL_PREFIX=${INSTALLPREFIX} ../src
+    $ make install
 
-This creates the libraries that connect your controller to the Khepera IV code. You need to install them on the robot in a convenient location.
+### Crosscompiling the Khepera IV plugin ###
+
+To compile the Khepera IV plugin code, follow these instructions:
+
+    $ export PKG_CONFIG_PATH=${INSTALLPREFIX}/lib/pkgconfig:${PKG_CONFIG_PATH}
+    $ cd ${KHIVPATH}
+    $ mkdir build_khiv
+    $ cd build_khiv
+    $ cmake -DCMAKE_TOOLCHAIN_FILE=${KHIVPATH}/src/cmake/TargetKheperaIV.cmake -DCMAKE_INSTALL_PREFIX=${INSTALLPREFIX} ../src
+    $ make install
+

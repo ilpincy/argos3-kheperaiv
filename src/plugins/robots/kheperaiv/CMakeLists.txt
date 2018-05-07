@@ -26,6 +26,11 @@ if(ARGOS_BUILD_FOR_SIMULATOR)
     simulator/kheperaiv_proximity_default_sensor.h
     simulator/kheperaiv_ultrasound_default_sensor.h)
 endif(ARGOS_BUILD_FOR_SIMULATOR)
+# argos3/plugins/robots/kheperaiv/real_robot
+if(ARGOS_BUILD_FOR STREQUAL "khiv")
+  set(ARGOS3_HEADERS_PLUGINS_ROBOTS_KHEPERAIV_REALROBOT
+    )
+endif(ARGOS_BUILD_FOR STREQUAL "khiv")
 
 #
 # kheperaiv sources
@@ -68,17 +73,26 @@ if(ARGOS_BUILD_FOR_SIMULATOR)
       simulator/qtopengl_kheperaiv.cpp)
   endif(ARGOS_COMPILE_QTOPENGL)
 endif(ARGOS_BUILD_FOR_SIMULATOR)
+if(ARGOS_BUILD_FOR STREQUAL "khiv")
+  set(ARGOS3_SOURCES_PLUGINS_ROBOTS_KHEPERAIV
+    ${ARGOS3_SOURCES_PLUGINS_ROBOTS_KHEPERAIV}
+    ${ARGOS3_HEADERS_PLUGINS_ROBOTS_KHEPERAIV_REALROBOT}
+    )
+endif(ARGOS_BUILD_FOR STREQUAL "khiv")
 
 #
 # Create kheperaiv plugin
 #
 add_library(argos3plugin_${ARGOS_BUILD_FOR}_kheperaiv SHARED ${ARGOS3_SOURCES_PLUGINS_ROBOTS_KHEPERAIV})
 target_link_libraries(argos3plugin_${ARGOS_BUILD_FOR}_kheperaiv
-  argos3plugin_${ARGOS_BUILD_FOR}_genericrobot
-  argos3plugin_${ARGOS_BUILD_FOR}_dynamics2d)
-if(ARGOS_COMPILE_QTOPENGL)
-  target_link_libraries(argos3plugin_${ARGOS_BUILD_FOR}_kheperaiv argos3plugin_${ARGOS_BUILD_FOR}_qtopengl)
-endif(ARGOS_COMPILE_QTOPENGL)
+  argos3plugin_${ARGOS_BUILD_FOR}_genericrobot)
+if(ARGOS_BUILD_FOR_SIMULATOR)
+  target_link_libraries(argos3plugin_${ARGOS_BUILD_FOR}_kheperaiv
+    argos3plugin_${ARGOS_BUILD_FOR}_dynamics2d)
+  if(ARGOS_COMPILE_QTOPENGL)
+    target_link_libraries(argos3plugin_${ARGOS_BUILD_FOR}_kheperaiv argos3plugin_${ARGOS_BUILD_FOR}_qtopengl)
+  endif(ARGOS_COMPILE_QTOPENGL)
+endif(ARGOS_BUILD_FOR_SIMULATOR)
 if(BUZZ_FOUND)
   target_link_libraries(argos3plugin_${ARGOS_BUILD_FOR}_kheperaiv argos3plugin_${ARGOS_BUILD_FOR}_buzz ${BUZZ_LIBRARY})
 endif(BUZZ_FOUND)
