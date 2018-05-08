@@ -29,7 +29,14 @@ endif(ARGOS_BUILD_FOR_SIMULATOR)
 # argos3/plugins/robots/kheperaiv/real_robot
 if(ARGOS_BUILD_FOR STREQUAL "khiv")
   set(ARGOS3_HEADERS_PLUGINS_ROBOTS_KHEPERAIV_REALROBOT
-    real_robot/real_kheperaiv.h)
+    real_robot/real_kheperaiv.h
+    real_robot/real_kheperaiv_device.h
+    real_robot/real_kheperaiv_differential_steering_actuator.h
+    real_robot/real_kheperaiv_leds_actuator.h
+    real_robot/real_kheperaiv_battery_sensor.h
+    real_robot/real_kheperaiv_ground_sensor.h
+    real_robot/real_kheperaiv_proximity_sensor.h
+    real_robot/real_kheperaiv_ultrasound_sensor.h)
 endif(ARGOS_BUILD_FOR STREQUAL "khiv")
 
 #
@@ -77,7 +84,14 @@ if(ARGOS_BUILD_FOR STREQUAL "khiv")
   set(ARGOS3_SOURCES_PLUGINS_ROBOTS_KHEPERAIV
     ${ARGOS3_SOURCES_PLUGINS_ROBOTS_KHEPERAIV}
     ${ARGOS3_HEADERS_PLUGINS_ROBOTS_KHEPERAIV_REALROBOT}
-    real_robot/real_kheperaiv.cpp)
+    real_robot/real_kheperaiv.cpp
+    real_robot/real_kheperaiv_device.cpp
+    real_robot/real_kheperaiv_differential_steering_actuator.cpp
+    real_robot/real_kheperaiv_leds_actuator.cpp
+    real_robot/real_kheperaiv_battery_sensor.cpp
+    real_robot/real_kheperaiv_ground_sensor.cpp
+    real_robot/real_kheperaiv_proximity_sensor.cpp
+    real_robot/real_kheperaiv_ultrasound_sensor.cpp)
 endif(ARGOS_BUILD_FOR STREQUAL "khiv")
 
 #
@@ -92,6 +106,9 @@ if(ARGOS_BUILD_FOR_SIMULATOR)
   if(ARGOS_COMPILE_QTOPENGL)
     target_link_libraries(argos3plugin_${ARGOS_BUILD_FOR}_kheperaiv argos3plugin_${ARGOS_BUILD_FOR}_qtopengl)
   endif(ARGOS_COMPILE_QTOPENGL)
+else(ARGOS_BUILD_FOR_SIMULATOR)
+  target_link_libraries(argos3plugin_${ARGOS_BUILD_FOR}_kheperaiv
+    -lkhepera)
 endif(ARGOS_BUILD_FOR_SIMULATOR)
 if(BUZZ_FOUND)
   target_link_libraries(argos3plugin_${ARGOS_BUILD_FOR}_kheperaiv argos3plugin_${ARGOS_BUILD_FOR}_buzz ${BUZZ_LIBRARY})
