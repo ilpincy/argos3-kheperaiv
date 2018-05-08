@@ -3,6 +3,7 @@
 #include "real_kheperaiv_leds_actuator.h"
 #include "real_kheperaiv_battery_sensor.h"
 #include "real_kheperaiv_ground_sensor.h"
+#include "real_kheperaiv_lidar_sensor.h"
 #include "real_kheperaiv_proximity_sensor.h"
 #include "real_kheperaiv_ultrasound_sensor.h"
 
@@ -79,6 +80,8 @@ CCI_Sensor* CRealKheperaIV::MakeSensor(const std::string& str_name) {
                "kheperaiv_battery");
    MAKE_SENSOR(CRealKheperaIVGroundSensor,
                "kheperaiv_ground");
+   MAKE_SENSOR(CRealKheperaIVLIDARSensor,
+               "kheperaiv_lidar");
    MAKE_SENSOR(CRealKheperaIVProximitySensor,
                "kheperaiv_proximity");
    MAKE_SENSOR(CRealKheperaIVUltrasoundSensor,
