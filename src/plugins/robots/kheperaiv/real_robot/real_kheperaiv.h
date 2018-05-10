@@ -11,10 +11,9 @@ class CRealKheperaIV : public CRealRobot {
 
 public:
 
-   CRealKheperaIV(const std::string& str_conf_fname,
-                  const std::string& str_controller_id);
+   CRealKheperaIV();
    virtual ~CRealKheperaIV();
-   virtual void Init();
+   virtual void InitRobot();
    virtual void Destroy();
    virtual CCI_Actuator* MakeActuator(const std::string& str_name);
    virtual CCI_Sensor* MakeSensor(const std::string& str_name);

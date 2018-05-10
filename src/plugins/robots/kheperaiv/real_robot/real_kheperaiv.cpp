@@ -11,10 +11,7 @@
 /****************************************/
 /****************************************/
 
-CRealKheperaIV::CRealKheperaIV(const std::string& str_conf_fname,
-                               const std::string& str_controller_id) :
-   CRealRobot(str_conf_fname,
-              str_controller_id),
+CRealKheperaIV::CRealKheperaIV() :
    m_ptDSPic(NULL) {
 }
 
@@ -27,7 +24,7 @@ CRealKheperaIV::~CRealKheperaIV() {
 /****************************************/
 /****************************************/
 
-void CRealKheperaIV::Init() {
+void CRealKheperaIV::InitRobot() {
    /* Initialize Khepera */
    if(kh4_init(0,NULL) != 0) {
       THROW_ARGOSEXCEPTION("Error initializing the Khepera IV subsystem (kh4_init)");
@@ -38,7 +35,8 @@ void CRealKheperaIV::Init() {
       THROW_ARGOSEXCEPTION("Error initializing communication with Khepera IV dsPic (knet_open)");
    }
    /* Make sure to start from a clean state */
-   /* It's weird to call Destroy() here, but all it does is making sure the robot does has everything switched off */
+   /* It's weird to call Destroy() here, but all it does is making
+    * sure that at this stage the robot has everything switched off */
    Destroy();
 }
 

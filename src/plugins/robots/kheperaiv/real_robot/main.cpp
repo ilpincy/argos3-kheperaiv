@@ -1,25 +1,9 @@
-#include <signal.h>
 #include <argos3/core/utility/configuration/argos_configuration.h>
 #include <argos3/core/utility/configuration/command_line_arg_parser.h>
 #include <argos3/core/utility/logging/argos_log.h>
 #include <argos3/plugins/robots/kheperaiv/real_robot/real_kheperaiv.h>
 
 using namespace argos;
-
-CRealKheperaIV* pcRobot = NULL;
-
-/*
- * Signal handler executed to stop the main loop cleanly.
- */
-void Cleanup(int) {
-   LOG << "[INFO] Stopping controller" << std::endl;
-   if(pcRobot != NULL) {
-      pcRobot->Destroy();
-      delete pcRobot;
-   }
-   LOG << "[INFO] All done" << std::endl;
-   exit(0);
-}
 
 int main(int argc, char* argv[]) {
    /*
@@ -43,15 +27,8 @@ int main(int argc, char* argv[]) {
       /*
        * Initialize the robot
        */
-      pcRobot = new CRealKheperaIV(strARGoSFName,
-                                   strControllerId);
-      /*
-       * Install signal handlers
-       */
-      ::signal(SIGINT, Cleanup);
-      ::signal(SIGQUIT, Cleanup);
-      ::signal(SIGABRT, Cleanup);
-      ::signal(SIGTERM, Cleanup);
+      CRealKheperaIV* pcRobot = new CRealKheperaIV();
+      pcRobot->Init(strARGoSFName, strControllerId);
       /*
        * Perform the main loop
        */
