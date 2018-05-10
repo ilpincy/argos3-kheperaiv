@@ -5,12 +5,14 @@
 
 CRealKheperaIVUltrasoundSensor::CRealKheperaIVUltrasoundSensor(knet_dev_t* pt_dspic) :
    CRealKheperaIVDevice(pt_dspic) {
+   kh4_activate_us(0x1F, GetDSPic());
 }
    
 /****************************************/
 /****************************************/
 
 CRealKheperaIVUltrasoundSensor::~CRealKheperaIVUltrasoundSensor() {
+   kh4_activate_us(0, GetDSPic());
 }
 
 /****************************************/

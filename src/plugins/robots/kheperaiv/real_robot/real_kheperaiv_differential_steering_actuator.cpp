@@ -1,4 +1,5 @@
 #include "real_kheperaiv_differential_steering_actuator.h"
+#include <argos3/core/utility/logging/argos_log.h>
 
 /****************************************/
 /****************************************/

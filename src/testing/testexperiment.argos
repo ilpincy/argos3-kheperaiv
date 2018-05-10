@@ -24,7 +24,7 @@
       <sensors>
         <kheperaiv_proximity implementation="default" show_rays="false" />
         <kheperaiv_ultrasound implementation="default" show_rays="false" />
-        <kheperaiv_lidar implementation="default" num_readings="10" show_rays="true" />
+        <!-- <kheperaiv_lidar implementation="default" num_readings="10" show_rays="true" /> -->
       </sensors>
       <params alpha="7.5" delta="0.1" velocity="5" />
     </kheperaiv_diffusion_controller>

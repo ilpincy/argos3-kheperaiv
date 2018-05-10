@@ -7,7 +7,7 @@ class CRealKheperaIVDevice {
 
 public:
 
-   CRealKheperaIVDevice(knet_dev_t* pt_dspic) {}
+   CRealKheperaIVDevice(knet_dev_t* pt_dspic);
    virtual ~CRealKheperaIVDevice() {}
 
    virtual void Do() = 0;

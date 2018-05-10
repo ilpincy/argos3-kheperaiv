@@ -126,6 +126,9 @@ install(FILES ${ARGOS3_HEADERS_PLUGINS_ROBOTS_KHEPERAIV_CONTROLINTERFACE} DESTIN
 if(ARGOS_BUILD_FOR_SIMULATOR)
   install(FILES ${ARGOS3_HEADERS_PLUGINS_ROBOTS_KHEPERAIV_SIMULATOR} DESTINATION include/argos3/plugins/robots/kheperaiv/simulator)
   install(FILES simulator/kheperaiv_texture_bottom.png simulator/kheperaiv_texture_side.png simulator/kheperaiv_texture_top.png DESTINATION include/argos3/plugins/simulator/visualizations/qt-opengl/textures)
+else(ARGOS_BUILD_FOR_SIMULATOR)
+  install(FILES ${ARGOS3_HEADERS_PLUGINS_ROBOTS_KHEPERAIV_REALROBOT} DESTINATION include/argos3/plugins/robots/kheperaiv/real_robot)
+  install(FILES real_robot/main.cpp DESTINATION include/argos3/plugins/robots/kheperaiv/real_robot)
 endif(ARGOS_BUILD_FOR_SIMULATOR)
 
 install(TARGETS argos3plugin_${ARGOS_BUILD_FOR}_kheperaiv

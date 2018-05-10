@@ -12,10 +12,13 @@ CRealKheperaIV* pcRobot = NULL;
  * Signal handler executed to stop the main loop cleanly.
  */
 void Cleanup(int) {
+   LOG << "[INFO] Stopping controller" << std::endl;
    if(pcRobot != NULL) {
       pcRobot->Destroy();
       delete pcRobot;
    }
+   LOG << "[INFO] All done" << std::endl;
+   exit(0);
 }
 
 int main(int argc, char* argv[]) {
