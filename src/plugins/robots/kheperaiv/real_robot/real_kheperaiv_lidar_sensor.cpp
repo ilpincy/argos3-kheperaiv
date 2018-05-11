@@ -5,16 +5,14 @@
 
 /* Device where the LRF is connected: here USB port */
 #define LRF_DEVICE "/dev/ttyACM0"
+static UInt8 KHEPERAIV_POWERON_LASERON   = 3;
 
 /****************************************/
 /****************************************/
 
 CRealKheperaIVLIDARSensor::CRealKheperaIVLIDARSensor(knet_dev_t* pt_dspic) :
-   CRealKheperaIVDevice(pt_dspic) {
-   /* Resize readings vector */
-   m_tReadings.resize(LRF_DATA_NB);
-   /* Activate the power supply battery module */
-   kb_lrf_Power_On();
+   CRealKheperaIVDevice(pt_dspic),
+   m_unPowerLaserState(KHEPERAIV_POWERON_LASERON) {
    /* Initialize LIDAR */
    m_nDeviceHandle = kb_lrf_Init(LRF_DEVICE);
    if(m_nDeviceHandle < 0) {
@@ -40,10 +38,48 @@ CRealKheperaIVLIDARSensor::~CRealKheperaIVLIDARSensor() {
 /****************************************/
 
 void CRealKheperaIVLIDARSensor::Do() {
+   if(m_unPowerLaserState != KHEPERAIV_POWERON_LASERON)
+      return;
    kb_lrf_GetDistances(m_nDeviceHandle);
-   for(size_t i = 0; i < LRF_DATA_NB; ++i) {
-      m_tReadings[i] = kb_lrf_DistanceData[LRF_DATA_NB - i - 1];
-   }
+}
+
+/****************************************/
+/****************************************/
+
+long CRealKheperaIVLIDARSensor::GetReading(UInt32 un_idx) const {
+   return kb_lrf_DistanceData[LRF_DATA_NB - un_idx - 1];
+}
+
+/****************************************/
+/****************************************/
+
+void CRealKheperaIVLIDARSensor::PowerOn() {
+   m_unPowerLaserState = m_unPowerLaserState | 0x1;
+   kb_lrf_Power_On();
+}
+
+/****************************************/
+/****************************************/
+
+void CRealKheperaIVLIDARSensor::PowerOff() {
+   m_unPowerLaserState = m_unPowerLaserState & 0xFE;
+   kb_lrf_Power_Off();
+}
+
+/****************************************/
+/****************************************/
+
+void CRealKheperaIVLIDARSensor::LaserOn() {
+   m_unPowerLaserState = m_unPowerLaserState | 0x2;
+   kb_lrf_Laser_On(m_nDeviceHandle);
+}
+
+/****************************************/
+/****************************************/
+
+void CRealKheperaIVLIDARSensor::LaserOff() {
+   m_unPowerLaserState = m_unPowerLaserState & 0xFD;
+   kb_lrf_Laser_Off(m_nDeviceHandle);
 }
 
 /****************************************/

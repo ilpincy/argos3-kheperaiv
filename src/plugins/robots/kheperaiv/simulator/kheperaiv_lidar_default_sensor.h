@@ -36,7 +36,28 @@ namespace argos {
 
       virtual void Reset();
 
+      virtual void Destroy();
+
+      virtual long GetReading(UInt32 un_idx) const;
+
+      virtual void PowerOn();
+
+      virtual void PowerOff();
+
+      virtual void LaserOn();
+
+      virtual void LaserOff();
+
    private:
+
+      /** Readings of the LIDAR sensor */
+      long int* m_pnReadings;
+
+      /** Number of readings of the LIDAR sensor */
+      size_t m_unNumReadings;
+
+      /** Power and Laser states */
+      UInt8 m_unPowerLaserState;
 
       /** Reference to embodied entity associated to this sensor */
       CEmbodiedEntity* m_pcEmbodiedEntity;

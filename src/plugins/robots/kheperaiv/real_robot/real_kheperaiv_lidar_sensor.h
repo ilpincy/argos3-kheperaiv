@@ -18,9 +18,23 @@ public:
 
    virtual void Do();
 
+   virtual long GetReading(UInt32 un_idx) const;
+
+   virtual void PowerOn();
+   
+   virtual void PowerOff();
+
+   virtual void LaserOn();
+
+   virtual void LaserOff();
+   
 private:
 
+   /** LIDAR board handle */
    int m_nDeviceHandle;
+
+   /** Power and Laser states */
+   UInt8 m_unPowerLaserState;
 
 };
 

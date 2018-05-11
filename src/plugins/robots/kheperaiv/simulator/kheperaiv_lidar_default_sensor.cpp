@@ -12,12 +12,22 @@
 #include "kheperaiv_lidar_default_sensor.h"
 #include "kheperaiv_measures.h"
 
+#include <cstring>
+
 namespace argos {
 
    /****************************************/
    /****************************************/
 
+   static UInt8 KHEPERAIV_POWERON_LASERON   = 3;
+
+   /****************************************/
+   /****************************************/
+
    CKheperaIVLIDARDefaultSensor::CKheperaIVLIDARDefaultSensor() :
+      m_pnReadings(NULL),
+      m_unNumReadings(682),
+      m_unPowerLaserState(KHEPERAIV_POWERON_LASERON),
       m_pcEmbodiedEntity(NULL),
       m_bShowRays(false),
       m_pcRNG(NULL),
@@ -52,17 +62,16 @@ namespace argos {
       try {
          CCI_KheperaIVLIDARSensor::Init(t_tree);
          /* How many readings? */
-         UInt32 unReadings = 682;
-         GetNodeAttributeOrDefault(t_tree, "num_readings", unReadings, unReadings);
+         GetNodeAttributeOrDefault(t_tree, "num_readings", m_unNumReadings, m_unNumReadings);
          m_pcProximityEntity->AddSensorFan(
             CVector3(0.0, 0.0, KHEPERAIV_LIDAR_ELEVATION),
             KHEPERAIV_LIDAR_SENSORS_FAN_RADIUS + KHEPERAIV_LIDAR_SENSORS_RING_RANGE.GetMin(),
             -KHEPERAIV_LIDAR_ANGLE_SPAN * 0.5,
             KHEPERAIV_LIDAR_ANGLE_SPAN * 0.5,
             KHEPERAIV_LIDAR_SENSORS_FAN_RADIUS + KHEPERAIV_LIDAR_SENSORS_RING_RANGE.GetMax(),
-            unReadings,
+            m_unNumReadings,
             m_pcEmbodiedEntity->GetOriginAnchor());
-         m_tReadings.resize(unReadings);
+         m_pnReadings = new long[m_unNumReadings];
          /* Show rays? */
          GetNodeAttributeOrDefault(t_tree, "show_rays", m_bShowRays, m_bShowRays);
          /* Parse noise level */
@@ -86,13 +95,16 @@ namespace argos {
    /****************************************/
 
    void CKheperaIVLIDARDefaultSensor::Update() {
+      /* Nothing to do if sensor is deactivated */
+      if(m_unPowerLaserState != KHEPERAIV_POWERON_LASERON)
+         return;
       /* Ray used for scanning the environment for obstacles */
       CRay3 cScanningRay;
       CVector3 cRayStart, cRayEnd;
       /* Buffers to contain data about the intersection */
       SEmbodiedEntityIntersectionItem sIntersection;
       /* Go through the sensors */
-      for(UInt32 i = 0; i < m_tReadings.size(); ++i) {
+      for(UInt32 i = 0; i < m_unNumReadings; ++i) {
          /* Compute ray for sensor i */
          cRayStart = m_pcProximityEntity->GetSensor(i).Offset;
          cRayStart.Rotate(m_pcProximityEntity->GetSensor(i).Anchor.Orientation);
@@ -114,18 +126,18 @@ namespace argos {
                m_pcControllableEntity->AddCheckedRay(true, cScanningRay);
             }
             /* The actual reading is in cm */
-            m_tReadings[i] = cScanningRay.GetDistance(sIntersection.TOnRay) * 100.0;
+            m_pnReadings[i] = cScanningRay.GetDistance(sIntersection.TOnRay) * 100;
          }
          else {
             /* No intersection */
-            m_tReadings[i] = 0.0f;
+            m_pnReadings[i] = 0;
             if(m_bShowRays) {
                m_pcControllableEntity->AddCheckedRay(false, cScanningRay);
             }
          }
          /* Apply noise to the sensor */
          if(m_bAddNoise) {
-            m_tReadings[i] += m_pcRNG->Uniform(m_cNoiseRange);
+            m_pnReadings[i] += m_pcRNG->Uniform(m_cNoiseRange);
          }
       }
    }
@@ -134,9 +146,53 @@ namespace argos {
    /****************************************/
 
    void CKheperaIVLIDARDefaultSensor::Reset() {
-      for(UInt32 i = 0; i < GetReadings().size(); ++i) {
-         m_tReadings[i] = 0.0f;
-      }
+      memset(m_pnReadings, 0, m_unNumReadings * sizeof(long int));
+   }
+
+   /****************************************/
+   /****************************************/
+
+   void CKheperaIVLIDARDefaultSensor::Destroy() {
+      delete[] m_pnReadings;
+   }
+
+   /****************************************/
+   /****************************************/
+
+   long CKheperaIVLIDARDefaultSensor::GetReading(UInt32 un_idx) const {
+      return m_pnReadings[un_idx];
+   }
+
+   /****************************************/
+   /****************************************/
+
+   void CKheperaIVLIDARDefaultSensor::PowerOn() {
+      m_unPowerLaserState = m_unPowerLaserState | 0x1;
+      m_pcProximityEntity->SetEnabled(m_unPowerLaserState == KHEPERAIV_POWERON_LASERON);
+   }
+
+   /****************************************/
+   /****************************************/
+
+   void CKheperaIVLIDARDefaultSensor::PowerOff() {
+      m_unPowerLaserState = m_unPowerLaserState & 0xFE;
+      m_pcProximityEntity->SetEnabled(m_unPowerLaserState == KHEPERAIV_POWERON_LASERON);
+   }
+
+   /****************************************/
+   /****************************************/
+
+   void CKheperaIVLIDARDefaultSensor::LaserOn() {
+      m_unPowerLaserState = m_unPowerLaserState | 0x2;
+      m_pcProximityEntity->SetEnabled(m_unPowerLaserState == KHEPERAIV_POWERON_LASERON);
+   }
+
+   /****************************************/
+   /****************************************/
+
+   void CKheperaIVLIDARDefaultSensor::LaserOff() {
+      m_unPowerLaserState = m_unPowerLaserState & 0xFD;
+      m_pcProximityEntity->SetEnabled(m_unPowerLaserState == KHEPERAIV_POWERON_LASERON);
    }
 
    /****************************************/

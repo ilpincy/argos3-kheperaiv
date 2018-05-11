@@ -6,7 +6,7 @@
  * This file provides the definition of the Khepera IV LIDAR sensor.
  * The sensor readings are evenly spaced on a slice around the body of
  * the robot.
- * 
+ *
  * @author Carlo Pinciroli <ilpincy@gmail.com>
  */
 
@@ -26,10 +26,6 @@ namespace argos {
 
    public:
 
-      typedef std::vector<Real> TReadings;
-
-   public:
-
       /**
        * Class constructor
        */
@@ -43,17 +39,33 @@ namespace argos {
       /**
        * Returns the readings of this sensor
        */
-      const TReadings& GetReadings() const;
+      virtual long GetReading(UInt32 un_idx) const = 0;
+
+      /*
+       * Switches the sensor power on.
+       */
+      virtual void PowerOn() = 0;
+
+      /*
+       * Switches the sensor power off.
+       */
+      virtual void PowerOff() = 0;
+
+      /*
+       * Switches the laser on.
+       */
+      virtual void LaserOn() = 0;
+
+      /*
+       * Switches the laser off.
+       */
+      virtual void LaserOff() = 0;
 
 #ifdef ARGOS_WITH_LUA
       virtual void CreateLuaState(lua_State* pt_lua_state);
 
       virtual void ReadingsToLuaState(lua_State* pt_lua_state);
 #endif
-
-   protected:
-
-      TReadings m_tReadings;
 
    };
 

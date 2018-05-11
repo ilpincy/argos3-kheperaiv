@@ -22,13 +22,6 @@ namespace argos {
    /****************************************/
    /****************************************/
 
-   const CCI_KheperaIVLIDARSensor::TReadings& CCI_KheperaIVLIDARSensor::GetReadings() const {
-     return m_tReadings;
-   }
-
-   /****************************************/
-   /****************************************/
-
 #ifdef ARGOS_WITH_LUA
    void CCI_KheperaIVLIDARSensor::CreateLuaState(lua_State* pt_lua_state) {
       // CLuaUtility::OpenRobotStateTable(pt_lua_state, "lidar");
