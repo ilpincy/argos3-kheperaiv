@@ -166,6 +166,13 @@ namespace argos {
    /****************************************/
    /****************************************/
 
+   size_t CKheperaIVLIDARDefaultSensor::GetNumReadings() const {
+      return m_unNumReadings;
+   }
+
+   /****************************************/
+   /****************************************/
+
    void CKheperaIVLIDARDefaultSensor::PowerOn() {
       m_unPowerLaserState = m_unPowerLaserState | 0x1;
       m_pcProximityEntity->SetEnabled(m_unPowerLaserState == KHEPERAIV_POWERON_LASERON);

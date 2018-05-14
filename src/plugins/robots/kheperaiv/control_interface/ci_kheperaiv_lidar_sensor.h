@@ -41,6 +41,11 @@ namespace argos {
        */
       virtual long GetReading(UInt32 un_idx) const = 0;
 
+      /**
+       * Returns the readings of this sensor
+       */
+      virtual size_t GetNumReadings() const = 0;
+
       /*
        * Switches the sensor power on.
        */

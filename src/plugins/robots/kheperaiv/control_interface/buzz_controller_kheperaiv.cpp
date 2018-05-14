@@ -348,12 +348,10 @@ void CBuzzControllerKheperaIV::UpdateSensors() {
       buzzvm_pusht(m_tBuzzVM);
       buzzobj_t tLTable = buzzvm_stack_at(m_tBuzzVM, 1);
       buzzvm_gstore(m_tBuzzVM);
-      /* Get lidar readings */
-      const CCI_KheperaIVLIDARSensor::TReadings& tLReads = m_pcLIDAR->GetReadings();
       /* Fill into the lidar table */
-      for(size_t i = 0; i < tLReads.size(); ++i) {
+      for(size_t i = 0; i < m_pcLIDAR->GetNumReadings(); ++i) {
          /* Store i-th read in the lidar table */
-         TablePut(tLTable, i, tLReads[i]);
+         TablePut(tLTable, i, static_cast<SInt32>(m_pcLIDAR->GetReading(i)));
       }
    }
 }
