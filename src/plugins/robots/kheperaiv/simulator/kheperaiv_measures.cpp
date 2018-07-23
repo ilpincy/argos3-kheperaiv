@@ -28,8 +28,8 @@ const CRange<Real> KHEPERAIV_ULTRASOUND_SENSORS_RING_RANGE(0.25, 2.0);
 
 const CVector2 KHEPERAIV_IR_SENSORS_GROUND_OFFSET[4] = {
    CVector2(0.06140,  0.01),
-   CVector2(0.02060,  0.0059),
-   CVector2(0.02060, -0.0059),
+   CVector2(0.02060,  0.059),
+   CVector2(0.02060, -0.059),
    CVector2(0.06140, -0.01)
 };
 
