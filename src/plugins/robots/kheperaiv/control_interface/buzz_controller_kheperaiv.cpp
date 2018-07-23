@@ -261,7 +261,7 @@ void CBuzzControllerKheperaIV::UpdateSensors() {
          buzzvm_tput(m_tBuzzVM);
          /* Add y offset value */
          buzzvm_dup(m_tBuzzVM);
-         buzzvm_pushs(m_tBuzzVM, buzzvm_string_register(m_tBuzzVM, "x", 1));
+         buzzvm_pushs(m_tBuzzVM, buzzvm_string_register(m_tBuzzVM, "y", 1));
          buzzvm_pushf(m_tBuzzVM, tGrndReads[i].Offset.GetX());
          buzzvm_tput(m_tBuzzVM);
          /* Store read table in the read table */
