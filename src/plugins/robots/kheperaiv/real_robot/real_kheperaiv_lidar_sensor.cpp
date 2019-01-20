@@ -53,6 +53,13 @@ long CRealKheperaIVLIDARSensor::GetReading(UInt32 un_idx) const {
 /****************************************/
 /****************************************/
 
+size_t CRealKheperaIVLIDARSensor::GetNumReadings() const {
+   return LRF_DATA_NB;
+}
+
+/****************************************/
+/****************************************/
+
 void CRealKheperaIVLIDARSensor::PowerOn() {
    m_unPowerLaserState = m_unPowerLaserState | 0x1;
    kb_lrf_Power_On();

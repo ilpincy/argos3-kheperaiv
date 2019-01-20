@@ -20,6 +20,8 @@ public:
 
    virtual long GetReading(UInt32 un_idx) const;
 
+   virtual size_t GetNumReadings() const;
+
    virtual void PowerOn();
    
    virtual void PowerOff();
