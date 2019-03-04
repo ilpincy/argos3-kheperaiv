@@ -16,6 +16,19 @@ if(ARGOS_BUILD_FOR_SIMULATOR)
 endif(ARGOS_BUILD_FOR_SIMULATOR)
 
 #
+# Check for PThreads
+# It is required only when compiling for the real robot
+#
+if(ARGOS_BUILD_FOR STREQUAL "khiv")
+  find_package(Pthreads)
+  if(NOT PTHREADS_FOUND)
+    message(FATAL_ERROR "Required library pthreads not found.")
+  endif(NOT PTHREADS_FOUND)
+  add_definitions(${PTHREADS_DEFINITIONS})
+  include_directories(${PTHREADS_INCLUDE_DIR})
+endif(ARGOS_BUILD_FOR STREQUAL "khiv")
+
+#
 # Find Lua
 #
 find_package(Lua52)

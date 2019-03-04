@@ -2,6 +2,7 @@
 #include "real_kheperaiv_differential_steering_actuator.h"
 #include "real_kheperaiv_leds_actuator.h"
 #include "real_kheperaiv_battery_sensor.h"
+#include "real_kheperaiv_camera_sensor.h"
 #include "real_kheperaiv_ground_sensor.h"
 #include "real_kheperaiv_lidar_sensor.h"
 #include "real_kheperaiv_proximity_sensor.h"
@@ -62,7 +63,7 @@ void CRealKheperaIV::Destroy() {
          new CLASSNAME(GetDSPic());                              \
       m_vecActuators.push_back(pcAct);                           \
       m_pcController->AddActuator(TAG, pcAct);                   \
-      LOG << "[INFO] Initialized actuator " << TAG << std::endl; \
+      LOG << "[INFO] Initialized \"" << TAG << "\" actuator " << std::endl; \
       return pcAct;                                              \
    }
 
@@ -83,13 +84,15 @@ CCI_Actuator* CRealKheperaIV::MakeActuator(const std::string& str_name) {
          new CLASSNAME(GetDSPic());                             \
       m_vecSensors.push_back(pcSens);                           \
       m_pcController->AddSensor(TAG, pcSens);                   \
-      LOG << "[INFO] Initialized sensor " << TAG << std::endl;  \
+      LOG << "[INFO] Initialized \"" << TAG << "\" sensor " << std::endl; \
       return pcSens;                                            \
    }
 
 CCI_Sensor* CRealKheperaIV::MakeSensor(const std::string& str_name) {
    MAKE_SENSOR(CRealKheperaIVBatterySensor,
                "kheperaiv_battery");
+   MAKE_SENSOR(CRealKheperaIVCameraSensor,
+               "camera");
    MAKE_SENSOR(CRealKheperaIVGroundSensor,
                "kheperaiv_ground");
    MAKE_SENSOR(CRealKheperaIVLIDARSensor,
