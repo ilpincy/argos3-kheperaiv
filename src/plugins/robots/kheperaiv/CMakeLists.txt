@@ -3,6 +3,7 @@
 #
 # argos3/plugins/robots/kheperaiv/control_interface
 set(ARGOS3_HEADERS_PLUGINS_ROBOTS_KHEPERAIV_CONTROLINTERFACE
+  control_interface/ci_kheperaiv_camera_sensor.h
   control_interface/ci_kheperaiv_encoder_sensor.h
   control_interface/ci_kheperaiv_ground_sensor.h
   control_interface/ci_kheperaiv_lidar_sensor.h
@@ -47,6 +48,7 @@ endif(ARGOS_BUILD_FOR STREQUAL "khiv")
 #
 set(ARGOS3_SOURCES_PLUGINS_ROBOTS_KHEPERAIV
   ${ARGOS3_HEADERS_PLUGINS_ROBOTS_KHEPERAIV_CONTROLINTERFACE}
+  control_interface/ci_kheperaiv_camera_sensor.cpp
   control_interface/ci_kheperaiv_encoder_sensor.cpp
   control_interface/ci_kheperaiv_ground_sensor.cpp
   control_interface/ci_kheperaiv_lidar_sensor.cpp
