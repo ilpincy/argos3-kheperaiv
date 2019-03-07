@@ -72,13 +72,13 @@ static void RGBtoHSV(unsigned char* pch_hsv, unsigned char* pch_rgb) {
       pch_hsv[0] = 0;
    }
    else if(unCMax == pch_rgb[0]) {
-      pch_hsv[0] = 30 * Mod(static_cast<Real>(pch_rgb[2] - pch_rgb[1]) / unDelta, 6);
+      pch_hsv[0] = 42.5 * Mod((static_cast<Real>(pch_rgb[1]) - static_cast<Real>(pch_rgb[2])) / unDelta, 6);
    }
    else if(unCMax == pch_rgb[1]) {
-      pch_hsv[0] = 2 + 30 * static_cast<Real>(pch_rgb[2] - pch_rgb[0]) / unDelta;
+      pch_hsv[0] = 42.5 * (2 + (static_cast<Real>(pch_rgb[2]) - static_cast<Real>(pch_rgb[0])) / unDelta);
    }
    else if(unCMax == pch_rgb[2]) {
-      pch_hsv[0] = 4 + 30 * static_cast<Real>(pch_rgb[0] - pch_rgb[1]) / unDelta;
+      pch_hsv[0] = 42.5 * (4 + (static_cast<Real>(pch_rgb[0]) - static_cast<Real>(pch_rgb[1])) / unDelta);
    }
    /* Saturation */
    if(pch_hsv[2] == 0) {
