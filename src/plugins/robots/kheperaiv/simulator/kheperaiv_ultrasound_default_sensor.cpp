@@ -18,6 +18,8 @@ namespace argos {
 
    class CUltrasoundSensorImpl : public CProximityDefaultSensor {
 
+      static const CRange<Real> RANGE;
+
    public:
 
       virtual void SetRobot(CComposableEntity& c_entity) {
@@ -33,10 +35,12 @@ namespace argos {
       }
 
       virtual Real CalculateReading(Real f_distance) {
-         return f_distance;
+         return RANGE.NormalizeValue(f_distance);
       }
 
    };
+
+   const CRange<Real> CUltrasoundSensorImpl::RANGE = CRange<Real>(0.25, 2);
 
    /****************************************/
    /****************************************/
