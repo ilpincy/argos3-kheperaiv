@@ -4,6 +4,8 @@
 #include <argos3/core/utility/configuration/argos_configuration.h>
 /* 2D vector definition */
 #include <argos3/core/utility/math/vector2.h>
+/* Logging */
+#include <argos3/core/utility/logging/argos_log.h>
 
 /****************************************/
 /****************************************/
@@ -44,6 +46,7 @@ void CKheperaIVDiffusion::Init(TConfigurationNode& t_node) {
     * occurs.
     */
    m_pcWheels    = GetActuator<CCI_DifferentialSteeringActuator>("differential_steering");
+   m_pcEncoder   = GetSensor  <CCI_DifferentialSteeringSensor  >("differential_steering");
    m_pcProximity = GetSensor  <CCI_KheperaIVProximitySensor    >("kheperaiv_proximity"  );
    /*
     * Parse the configuration file
@@ -82,12 +85,19 @@ void CKheperaIVDiffusion::ControlStep() {
    else {
       /* Turn, depending on the sign of the angle */
       if(cAngle.GetValue() > 0.0f) {
-         m_pcWheels->SetLinearVelocity(m_fWheelVelocity, 0.0f);
+         m_pcWheels->SetLinearVelocity(-m_fWheelVelocity, 0.0f);
       }
       else {
-         m_pcWheels->SetLinearVelocity(0.0f, m_fWheelVelocity);
+         m_pcWheels->SetLinearVelocity(0.0f, -m_fWheelVelocity);
       }
    }
+   /* Print encoder values */
+   RLOG << "Encoder values: "
+	<< "VL=" << m_pcEncoder->GetReading().VelocityLeftWheel << ", "
+	<< "VR=" << m_pcEncoder->GetReading().VelocityRightWheel << ", "
+	<< "DL=" << m_pcEncoder->GetReading().CoveredDistanceLeftWheel << ", "
+	<< "DR=" << m_pcEncoder->GetReading().CoveredDistanceRightWheel
+	<< std::endl;
 }
 
 /****************************************/

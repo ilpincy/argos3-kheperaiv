@@ -37,6 +37,7 @@ if(ARGOS_BUILD_FOR STREQUAL "khiv")
     real_robot/real_kheperaiv_leds_actuator.h
     real_robot/real_kheperaiv_battery_sensor.h
     real_robot/real_kheperaiv_camera_sensor.h
+    real_robot/real_kheperaiv_encoder_sensor.h
     real_robot/real_kheperaiv_ground_sensor.h
     real_robot/real_kheperaiv_lidar_sensor.h
     real_robot/real_kheperaiv_proximity_sensor.h
@@ -95,6 +96,7 @@ if(ARGOS_BUILD_FOR STREQUAL "khiv")
     real_robot/real_kheperaiv_leds_actuator.cpp
     real_robot/real_kheperaiv_battery_sensor.cpp
     real_robot/real_kheperaiv_camera_sensor.cpp
+    real_robot/real_kheperaiv_encoder_sensor.cpp
     real_robot/real_kheperaiv_ground_sensor.cpp
     real_robot/real_kheperaiv_lidar_sensor.cpp
     real_robot/real_kheperaiv_proximity_sensor.cpp
