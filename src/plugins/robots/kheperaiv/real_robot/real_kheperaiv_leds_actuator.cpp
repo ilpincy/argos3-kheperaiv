@@ -20,7 +20,7 @@ CRealKheperaIVLEDsActuator::~CRealKheperaIVLEDsActuator() {
 
 static Real ARGOS2KH4 = 63.0 / 255.0;
 
-void CRealKheperaIVLEDsActuator::Do() {
+void CRealKheperaIVLEDsActuator::Do(Real f_elapsed_time) {
    kh4_SetRGBLeds(
       m_tSettings[0].GetRed()   * ARGOS2KH4,
       m_tSettings[0].GetGreen() * ARGOS2KH4,

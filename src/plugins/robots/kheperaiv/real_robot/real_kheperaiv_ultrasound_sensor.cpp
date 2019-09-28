@@ -21,7 +21,7 @@ CRealKheperaIVUltrasoundSensor::~CRealKheperaIVUltrasoundSensor() {
 #define SETREADING(ARGOSIDX, KH4IDX)                                    \
    m_tReadings[ARGOSIDX].Value = (GetBuffer()[KH4IDX*2] | GetBuffer()[KH4IDX*2+1] << 8);
 
-void CRealKheperaIVUltrasoundSensor::Do() {
+void CRealKheperaIVUltrasoundSensor::Do(Real f_elapsed_time) {
    kh4_measure_us(GetBuffer(), GetDSPic());
    SETREADING(0, 2);
    SETREADING(1, 1);

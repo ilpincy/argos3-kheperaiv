@@ -17,8 +17,8 @@ public:
    virtual void Destroy();
    virtual CCI_Actuator* MakeActuator(const std::string& str_name);
    virtual CCI_Sensor* MakeSensor(const std::string& str_name);
-   virtual void Sense();
-   virtual void Act();
+   virtual void Sense(Real f_elapsed_time);
+   virtual void Act(Real f_elapsed_time);
 
    inline knet_dev_t* GetDSPic() const {
       return m_ptDSPic;

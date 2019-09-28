@@ -307,7 +307,7 @@ const unsigned char* CRealKheperaIVCameraSensor::GetPixels() const {
 /****************************************/
 /****************************************/
 
-void CRealKheperaIVCameraSensor::Do() {
+void CRealKheperaIVCameraSensor::Do(Real f_elapsed_time) {
    /* Take latest reading from worker thread */
    pthread_mutex_trylock(&m_tBlobReadyMutex);
    if(m_bNewBlobReadings) {

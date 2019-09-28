@@ -27,7 +27,7 @@ CRealKheperaIVGripperActuator::~CRealKheperaIVGripperActuator() {
 /****************************************/
 /****************************************/
 
-void CRealKheperaIVGripperActuator::Do() {
+void CRealKheperaIVGripperActuator::Do(Real f_elapsed_time) {
 }
 
 /****************************************/

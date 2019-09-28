@@ -16,7 +16,7 @@ public:
    
    virtual ~CRealKheperaIVProximitySensor();
 
-   virtual void Do();
+   virtual void Do(Real f_elapsed_time);
 
 };
 

@@ -1,7 +1,10 @@
 #ifndef REAL_KHEPERAIV_DEVICE_H
 #define REAL_KHEPERAIV_DEVICE_H
 
+#include <argos3/core/utility/datatypes/datatypes.h>
 #include <khepera/khepera.h>
+
+using namespace argos;
 
 class CRealKheperaIVDevice {
 
@@ -10,7 +13,7 @@ public:
    CRealKheperaIVDevice(knet_dev_t* pt_dspic);
    virtual ~CRealKheperaIVDevice() {}
 
-   virtual void Do() = 0;
+   virtual void Do(Real f_elapsed_time) = 0;
 
    inline knet_dev_t* GetDSPic() const {
       return m_ptDSPic;

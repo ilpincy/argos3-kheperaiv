@@ -4,8 +4,8 @@
 /****************************************/
 
 /* Device where the LRF is connected: here USB port */
-#define LRF_DEVICE "/dev/ttyACM0"
-static UInt8 KHEPERAIV_POWERON_LASERON   = 3;
+static char  KHEPERAIV_LRF_DEVICE[]    = "/dev/ttyACM0";
+static UInt8 KHEPERAIV_POWERON_LASERON = 3;
 
 /****************************************/
 /****************************************/
@@ -14,7 +14,7 @@ CRealKheperaIVLIDARSensor::CRealKheperaIVLIDARSensor(knet_dev_t* pt_dspic) :
    CRealKheperaIVDevice(pt_dspic),
    m_unPowerLaserState(KHEPERAIV_POWERON_LASERON) {
    /* Initialize LIDAR */
-   m_nDeviceHandle = kb_lrf_Init(LRF_DEVICE);
+   m_nDeviceHandle = kb_lrf_Init(KHEPERAIV_LRF_DEVICE);
    if(m_nDeviceHandle < 0) {
       kb_lrf_Power_Off();
       THROW_ARGOSEXCEPTION("Can't initialize LIDAR");
@@ -37,7 +37,7 @@ CRealKheperaIVLIDARSensor::~CRealKheperaIVLIDARSensor() {
 /****************************************/
 /****************************************/
 
-void CRealKheperaIVLIDARSensor::Do() {
+void CRealKheperaIVLIDARSensor::Do(Real f_elapsed_time) {
    if(m_unPowerLaserState != KHEPERAIV_POWERON_LASERON)
       return;
    kb_lrf_GetDistances(m_nDeviceHandle);

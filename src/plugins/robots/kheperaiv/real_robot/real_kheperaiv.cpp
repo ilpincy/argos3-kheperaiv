@@ -110,18 +110,18 @@ CCI_Sensor* CRealKheperaIV::MakeSensor(const std::string& str_name) {
 /****************************************/
 /****************************************/
 
-void CRealKheperaIV::Sense() {
+void CRealKheperaIV::Sense(Real f_elapsed_time) {
    for(size_t i = 0; i < m_vecSensors.size(); ++i) {
-      m_vecSensors[i]->Do();
+      m_vecSensors[i]->Do(f_elapsed_time);
    }
 }
 
 /****************************************/
 /****************************************/
 
-void CRealKheperaIV::Act() {
+void CRealKheperaIV::Act(Real f_elapsed_time) {
    for(size_t i = 0; i < m_vecActuators.size(); ++i) {
-      m_vecActuators[i]->Do();
+      m_vecActuators[i]->Do(f_elapsed_time);
    }
 }
 

@@ -3,6 +3,7 @@
 
 #include <argos3/plugins/robots/generic/control_interface/ci_differential_steering_actuator.h>
 #include <argos3/plugins/robots/kheperaiv/real_robot/real_kheperaiv_device.h>
+#include <argos3/plugins/robots/kheperaiv/real_robot/real_kheperaiv_differential_steering_device.h>
 
 using namespace argos;
 
@@ -16,10 +17,14 @@ public:
    
    virtual ~CRealKheperaIVDifferentialSteeringActuator();
 
-   virtual void Do();
+   virtual void Do(Real f_elapsed_time);
    
    virtual void SetLinearVelocity(Real f_left_velocity,
                                   Real f_right_velocity);
+
+private:
+
+  CRealKheperaIVDifferentialSteeringDevice* m_pcDevice;
 };
 
 #endif
