@@ -2,25 +2,25 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define RED   if(color) printf("\x1b[31m")
-#define GREEN if(color) printf("\x1b[32m")
-#define RESET if(color) printf("\x1b[0m");
+#define RED   if(nColor) printf("\x1b[31m")
+#define GREEN if(nColor) printf("\x1b[32m")
+#define RESET if(nColor) printf("\x1b[0m");
 
 /* Device handle */
 knet_dev_t* tDSPic;
 /* Data buffer */
 char pchBuffer[100];
 /* Whether to color the output */
-int color = 0;
+int nColor = 0;
 /* Whether to end with a newline */
-int nonewline = 0;
+int nNoNewLine = 0;
 /* The threshold */
-int threshold = 15;
+int nThreshold = 15;
 
 void battery_main() {
   kh4_battery_status(pchBuffer, tDSPic);
   int nPlugged = kh4_battery_charge(tDSPic);
-  if(!nPlugged && (pchBuffer[3] < threshold)) { RED; }
+  if(!nPlugged && (pchBuffer[3] < nThreshold)) { RED; }
   else { GREEN; }
   printf("(%d%%,%s)",
 	 pchBuffer[3],
@@ -40,17 +40,16 @@ int main(int n_argc, char** pch_argv) {
 	fprintf(stdout, "%s [--color] [--nonewline] [--threshold T]\n\n", pch_argv[0]);
 	fprintf(stdout, "   --color         Color the output red if the battery is below its safe charge\n");
 	fprintf(stdout, "                   threshold, green otherwise.\n\n");
-	fprintf(stdout, "********************************************************************************");
 	fprintf(stdout, "   --nonewline     Do not emit a newline in the output.\n\n");
 	fprintf(stdout, "   --threshold T   Set the charge threshold to T%%. Default is 15%%.\n\n");
 	return 0;
       }
       else if(strcmp(pch_argv[nArg], "--color") == 0) {
-	color = 1;
+	nColor = 1;
 	++nArg;
       }
       else if(strcmp(pch_argv[nArg], "--nonewline") == 0) {
-	nonewline = 1;
+	nNoNewLine = 1;
 	++nArg;
       }
       else if(strcmp(pch_argv[nArg], "--threshold") == 0) {
@@ -60,12 +59,12 @@ int main(int n_argc, char** pch_argv) {
 	  return -1;
 	}
 	char* pchEndPtr;
-	threshold = strtol(pch_argv[nArg], &pchEndPtr, 10);
+	nThreshold = strtol(pch_argv[nArg], &pchEndPtr, 10);
 	if(*pchEndPtr != '\0') {
 	  fprintf(stderr, "Can't parse '%s' as a numeric value for the threshold\n\n", pch_argv[nArg]);
 	  return -1;
 	}
-	if(threshold < 1 || threshold > 100) {
+	if(nThreshold < 1 || nThreshold > 100) {
 	  fprintf(stderr, "The threshold value must be within [1,100]\n\n");
 	  return -1;
 	}
@@ -96,6 +95,6 @@ int main(int n_argc, char** pch_argv) {
   battery_main();
   /* battery_lidar(); */
   /* Add newline? */
-  if(!nonewline) printf("\n");
+  if(!nNoNewLine) printf("\n");
   return 0;
 }
