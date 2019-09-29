@@ -21,9 +21,9 @@ public:
 
 private:
 
-  int m_nEncoderLeft;
-  int m_nEncoderRight;
-  CRealKheperaIVDifferentialSteeringDevice* m_pcDevice;
+   int m_nEncoderLeft;
+   int m_nEncoderRight;
+   CRealKheperaIVDifferentialSteeringDevice* m_pcDevice;
 
 };
 

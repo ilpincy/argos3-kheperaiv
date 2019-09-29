@@ -18,14 +18,14 @@ int nNoNewLine = 0;
 int nThreshold = 15;
 
 void battery_main() {
-  kh4_battery_status(pchBuffer, tDSPic);
-  int nPlugged = kh4_battery_charge(tDSPic);
-  if(!nPlugged && (pchBuffer[3] < nThreshold)) { RED; }
-  else { GREEN; }
-  printf("(%d%%,%s)",
-	 pchBuffer[3],
-	 nPlugged ? "plugged" : "unplugged");
-  RESET;
+   kh4_battery_status(pchBuffer, tDSPic);
+   int nPlugged = kh4_battery_charge(tDSPic);
+   if(!nPlugged && (pchBuffer[3] < nThreshold)) { RED; }
+   else { GREEN; }
+   printf("(%d%%,%s)",
+          pchBuffer[3],
+          nPlugged ? "plugged" : "unplugged");
+   RESET;
 }
 
 /* TODO */
@@ -33,68 +33,68 @@ void battery_main() {
 /* } */
 
 int main(int n_argc, char** pch_argv) {
-  if(n_argc > 1) {
-    int nArg = 1;
-    while(nArg < n_argc) {
-      if(strcmp(pch_argv[nArg], "--help") == 0) {
-	fprintf(stdout, "%s [--color] [--nonewline] [--threshold T]\n\n", pch_argv[0]);
-	fprintf(stdout, "   --color         Color the output red if the battery is below its safe charge\n");
-	fprintf(stdout, "                   threshold, green otherwise.\n\n");
-	fprintf(stdout, "   --nonewline     Do not emit a newline in the output.\n\n");
-	fprintf(stdout, "   --threshold T   Set the charge threshold to T%%. Default is 15%%.\n\n");
-	return 0;
+   if(n_argc > 1) {
+      int nArg = 1;
+      while(nArg < n_argc) {
+         if(strcmp(pch_argv[nArg], "--help") == 0) {
+            fprintf(stdout, "%s [--color] [--nonewline] [--threshold T]\n\n", pch_argv[0]);
+	    fprintf(stdout, "   --color         Color the output red if the battery is below its safe charge\n");
+	    fprintf(stdout, "                   threshold, green otherwise.\n\n");
+	    fprintf(stdout, "   --nonewline     Do not emit a newline in the output.\n\n");
+	    fprintf(stdout, "   --threshold T   Set the charge threshold to T%%. Default is 15%%.\n\n");
+	    return 0;
+	 }
+	 else if(strcmp(pch_argv[nArg], "--color") == 0) {
+	    nColor = 1;
+	    ++nArg;
+	 }
+	 else if(strcmp(pch_argv[nArg], "--nonewline") == 0) {
+	    nNoNewLine = 1;
+	    ++nArg;
+	 }
+	 else if(strcmp(pch_argv[nArg], "--threshold") == 0) {
+	    ++nArg;
+	    if(nArg >= n_argc) {
+	       fprintf(stderr, "Missing argument for --threshold\nType '%s --help' for more information.\n\n", pch_argv[0]);
+	       return -1;
+	    }
+	    char* pchEndPtr;
+	    nThreshold = strtol(pch_argv[nArg], &pchEndPtr, 10);
+	    if(*pchEndPtr != '\0') {
+	       fprintf(stderr, "Can't parse '%s' as a numeric value for the threshold\n\n", pch_argv[nArg]);
+	       return -1;
+	    }
+	    if(nThreshold < 1 || nThreshold > 100) {
+	       fprintf(stderr, "The threshold value must be within [1,100]\n\n");
+	       return -1;
+	    }
+	    ++nArg;
+	 }
+	 else {
+	    fprintf(stderr, "Unrecognized option '%s'\nType '%s --help' for a list of accepted arguments.\n\n", pch_argv[nArg], pch_argv[0]);
+	    return -1;
+	 }
       }
-      else if(strcmp(pch_argv[nArg], "--color") == 0) {
-	nColor = 1;
-	++nArg;
-      }
-      else if(strcmp(pch_argv[nArg], "--nonewline") == 0) {
-	nNoNewLine = 1;
-	++nArg;
-      }
-      else if(strcmp(pch_argv[nArg], "--threshold") == 0) {
-	++nArg;
-	if(nArg >= n_argc) {
-	  fprintf(stderr, "Missing argument for --threshold\nType '%s --help' for more information.\n\n", pch_argv[0]);
-	  return -1;
-	}
-	char* pchEndPtr;
-	nThreshold = strtol(pch_argv[nArg], &pchEndPtr, 10);
-	if(*pchEndPtr != '\0') {
-	  fprintf(stderr, "Can't parse '%s' as a numeric value for the threshold\n\n", pch_argv[nArg]);
-	  return -1;
-	}
-	if(nThreshold < 1 || nThreshold > 100) {
-	  fprintf(stderr, "The threshold value must be within [1,100]\n\n");
-	  return -1;
-	}
-	++nArg;
-      }
-      else {
-	fprintf(stderr, "Unrecognized option '%s'\nType '%s --help' for a list of accepted arguments.\n\n", pch_argv[nArg], pch_argv[0]);
-	return -1;
-      }
-    }
-  }
-  /* Initialize robot */
-  if(kh4_init(0, NULL) != 0) {
-    RED;
-    printf("(main:no status [init error])");
-    RESET;
-    return -2;
-  }
-  /* Connect to robot */
-  tDSPic = knet_open("Khepera4:dsPic" , KNET_BUS_I2C, 0, NULL);
-  if (tDSPic == NULL) {
-    RED;
-    printf("(main:no status [open error])");
-    RESET;
-    return -3;
-  }
-  /* Display battery status */
-  battery_main();
-  /* battery_lidar(); */
-  /* Add newline? */
-  if(!nNoNewLine) printf("\n");
-  return 0;
+   }
+   /* Initialize robot */
+   if(kh4_init(0, NULL) != 0) {
+      RED;
+      printf("(main:no status [init error])");
+      RESET;
+      return -2;
+   }
+   /* Connect to robot */
+   tDSPic = knet_open("Khepera4:dsPic" , KNET_BUS_I2C, 0, NULL);
+   if (tDSPic == NULL) {
+      RED;
+      printf("(main:no status [open error])");
+      RESET;
+      return -3;
+   }
+   /* Display battery status */
+   battery_main();
+   /* battery_lidar(); */
+   /* Add newline? */
+   if(!nNoNewLine) printf("\n");
+   return 0;
 }

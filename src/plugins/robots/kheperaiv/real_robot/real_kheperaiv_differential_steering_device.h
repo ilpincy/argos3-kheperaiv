@@ -9,32 +9,32 @@ class CRealKheperaIVDifferentialSteeringDevice {
 
 public:
 
-  static CRealKheperaIVDifferentialSteeringDevice* GetInstance();
+   static CRealKheperaIVDifferentialSteeringDevice* GetInstance();
 
-  ~CRealKheperaIVDifferentialSteeringDevice() {}
+   ~CRealKheperaIVDifferentialSteeringDevice() {}
 
-  inline void SetVelocity(Real* f_velocity) {
-    m_fVelocityLeft = f_velocity[0];
-    m_fVelocityRight = f_velocity[1];
-  }
+   inline void SetVelocity(Real* f_velocity) {
+      m_fVelocityLeft = f_velocity[0];
+      m_fVelocityRight = f_velocity[1];
+   }
 
-  inline Real GetVelocityLeft() const {
-    return m_fVelocityLeft;
-  }
+   inline Real GetVelocityLeft() const {
+      return m_fVelocityLeft;
+   }
 
-  inline Real GetVelocityRight() const {
-    return m_fVelocityRight;
-  }
+   inline Real GetVelocityRight() const {
+      return m_fVelocityRight;
+   }
 
 private:
 
-  CRealKheperaIVDifferentialSteeringDevice();
+   CRealKheperaIVDifferentialSteeringDevice();
    
 private:
 
-  static CRealKheperaIVDifferentialSteeringDevice* m_pcInstance;
-  Real m_fVelocityLeft;
-  Real m_fVelocityRight;
+   static CRealKheperaIVDifferentialSteeringDevice* m_pcInstance;
+   Real m_fVelocityLeft;
+   Real m_fVelocityRight;
 };
 
 #endif
