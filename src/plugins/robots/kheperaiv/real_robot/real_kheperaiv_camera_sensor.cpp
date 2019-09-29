@@ -173,7 +173,9 @@ static void* CameraThread(void* pvoid_params) {
          unsigned char* pchRGBPx;
          unsigned char pchHSVPx[3];
          for(UInt32 x = 0; x < ptParams->Width; ++x) {
-            for(UInt32 y = 0; y < ptParams->Height; ++x) {
+            for(UInt32 y = 0; y < ptParams->Height; ++y) {
+               /* Cancellation point */
+               pthread_testcancel();
                /* Convert RGB pixel to HSV */
                pchRGBPx = ptParams->ImgBuffer + 3 * (ptParams->Width * y + x);
                RGBtoHSV(pchHSVPx, pchRGBPx);
@@ -204,8 +206,6 @@ static void* CameraThread(void* pvoid_params) {
          pthread_mutex_unlock(&ptParams->Mutex);
          /* Clear work buffer for new image */
          ptParams->WorkBuffer.clear();
-         /* Cancellation point */
-         pthread_testcancel();
       }
       else {
          LOGERR << "[WARNING] Error capturing camera frame: "
