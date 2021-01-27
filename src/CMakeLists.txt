@@ -4,10 +4,19 @@
 cmake_minimum_required(VERSION 2.8.12)
 
 #
+# Set build options
+#
+include(${CMAKE_SOURCE_DIR}/cmake/ARGoSBuildOptions.cmake)
+
+#
+# Project name
+#
+project(argos3_${ARGOS_BUILD_FOR})
+
+#
 # Deactivate RPATH for MacOSX
 #
 set(CMAKE_MACOSX_RPATH 0)
-
 
 #
 # Set the path additional cmake files must be searched for
@@ -34,11 +43,6 @@ include_directories(${CMAKE_SOURCE_DIR} ${CMAKE_BINARY_DIR})
 if(NOT UNIX)
   message(FATAL_ERROR "ARGoS compiles only under UNIX, sorry!")
 endif(NOT UNIX)
-
-#
-# Set build options
-#
-include(${CMAKE_SOURCE_DIR}/cmake/ARGoSBuildOptions.cmake)
 
 #
 # Set compiler flags

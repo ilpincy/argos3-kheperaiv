@@ -31,10 +31,8 @@ endif(ARGOS_BUILD_FOR STREQUAL "khiv")
 #
 # Find Lua
 #
-find_package(Lua52)
-if(LUA52_FOUND)
-  include_directories(${LUA_INCLUDE_DIR})
-endif(LUA52_FOUND)
+find_package(Lua REQUIRED)
+include_directories(${LUA_INCLUDE_DIR})
 
 find_package(Buzz)
 if(BUZZ_FOUND)
