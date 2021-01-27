@@ -3,6 +3,7 @@
 #include "real_kheperaiv_leds_actuator.h"
 #include "real_kheperaiv_battery_sensor.h"
 #include "real_kheperaiv_camera_sensor.h"
+#include "real_kheperaiv_encoder_sensor.h"
 #include "real_kheperaiv_ground_sensor.h"
 #include "real_kheperaiv_lidar_sensor.h"
 #include "real_kheperaiv_proximity_sensor.h"
@@ -57,14 +58,14 @@ void CRealKheperaIV::Destroy() {
 /****************************************/
 /****************************************/
 
-#define MAKE_ACTUATOR(CLASSNAME, TAG)                            \
-   if(str_name == TAG) {                                         \
-      CLASSNAME* pcAct =                                         \
-         new CLASSNAME(GetDSPic());                              \
-      m_vecActuators.push_back(pcAct);                           \
-      m_pcController->AddActuator(TAG, pcAct);                   \
+#define MAKE_ACTUATOR(CLASSNAME, TAG)					\
+   if(str_name == TAG) {						\
+      CLASSNAME* pcAct =						\
+         new CLASSNAME(GetDSPic());					\
+      m_vecActuators.push_back(pcAct);					\
+      m_pcController->AddActuator(TAG, pcAct);				\
       LOG << "[INFO] Initialized \"" << TAG << "\" actuator " << std::endl; \
-      return pcAct;                                              \
+      return pcAct;							\
    }
 
 CCI_Actuator* CRealKheperaIV::MakeActuator(const std::string& str_name) {
@@ -78,14 +79,14 @@ CCI_Actuator* CRealKheperaIV::MakeActuator(const std::string& str_name) {
 /****************************************/
 /****************************************/
 
-#define MAKE_SENSOR(CLASSNAME, TAG)                             \
-   if(str_name == TAG) {                                        \
-      CLASSNAME* pcSens =                                       \
-         new CLASSNAME(GetDSPic());                             \
-      m_vecSensors.push_back(pcSens);                           \
-      m_pcController->AddSensor(TAG, pcSens);                   \
+#define MAKE_SENSOR(CLASSNAME, TAG)					\
+   if(str_name == TAG) {						\
+      CLASSNAME* pcSens =						\
+         new CLASSNAME(GetDSPic());					\
+      m_vecSensors.push_back(pcSens);					\
+      m_pcController->AddSensor(TAG, pcSens);				\
       LOG << "[INFO] Initialized \"" << TAG << "\" sensor " << std::endl; \
-      return pcSens;                                            \
+      return pcSens;							\
    }
 
 CCI_Sensor* CRealKheperaIV::MakeSensor(const std::string& str_name) {
@@ -93,6 +94,8 @@ CCI_Sensor* CRealKheperaIV::MakeSensor(const std::string& str_name) {
                "kheperaiv_battery");
    MAKE_SENSOR(CRealKheperaIVCameraSensor,
                "camera");
+   MAKE_SENSOR(CRealKheperaIVEncoderSensor,
+	       "differential_steering");
    MAKE_SENSOR(CRealKheperaIVGroundSensor,
                "kheperaiv_ground");
    MAKE_SENSOR(CRealKheperaIVLIDARSensor,
@@ -107,18 +110,18 @@ CCI_Sensor* CRealKheperaIV::MakeSensor(const std::string& str_name) {
 /****************************************/
 /****************************************/
 
-void CRealKheperaIV::Sense() {
+void CRealKheperaIV::Sense(Real f_elapsed_time) {
    for(size_t i = 0; i < m_vecSensors.size(); ++i) {
-      m_vecSensors[i]->Do();
+      m_vecSensors[i]->Do(f_elapsed_time);
    }
 }
 
 /****************************************/
 /****************************************/
 
-void CRealKheperaIV::Act() {
+void CRealKheperaIV::Act(Real f_elapsed_time) {
    for(size_t i = 0; i < m_vecActuators.size(); ++i) {
-      m_vecActuators[i]->Do();
+      m_vecActuators[i]->Do(f_elapsed_time);
    }
 }
 

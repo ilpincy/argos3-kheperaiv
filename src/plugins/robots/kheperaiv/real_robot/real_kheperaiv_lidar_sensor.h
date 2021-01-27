@@ -16,7 +16,7 @@ public:
    
    virtual ~CRealKheperaIVLIDARSensor();
 
-   virtual void Do();
+   virtual void Do(Real f_elapsed_time);
 
    virtual long GetReading(UInt32 un_idx) const;
 

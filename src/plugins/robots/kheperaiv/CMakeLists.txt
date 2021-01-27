@@ -32,11 +32,13 @@ if(ARGOS_BUILD_FOR STREQUAL "khiv")
   set(ARGOS3_HEADERS_PLUGINS_ROBOTS_KHEPERAIV_REALROBOT
     real_robot/real_kheperaiv.h
     real_robot/real_kheperaiv_device.h
+    real_robot/real_kheperaiv_differential_steering_device.h
     real_robot/real_kheperaiv_differential_steering_actuator.h
     #real_robot/real_kheperaiv_gripper_actuator.h
     real_robot/real_kheperaiv_leds_actuator.h
     real_robot/real_kheperaiv_battery_sensor.h
     real_robot/real_kheperaiv_camera_sensor.h
+    real_robot/real_kheperaiv_encoder_sensor.h
     real_robot/real_kheperaiv_ground_sensor.h
     real_robot/real_kheperaiv_lidar_sensor.h
     real_robot/real_kheperaiv_proximity_sensor.h
@@ -90,11 +92,13 @@ if(ARGOS_BUILD_FOR STREQUAL "khiv")
     ${ARGOS3_HEADERS_PLUGINS_ROBOTS_KHEPERAIV_REALROBOT}
     real_robot/real_kheperaiv.cpp
     real_robot/real_kheperaiv_device.cpp
+    real_robot/real_kheperaiv_differential_steering_device.cpp
     real_robot/real_kheperaiv_differential_steering_actuator.cpp
     #real_robot/real_kheperaiv_gripper_actuator.cpp
     real_robot/real_kheperaiv_leds_actuator.cpp
     real_robot/real_kheperaiv_battery_sensor.cpp
     real_robot/real_kheperaiv_camera_sensor.cpp
+    real_robot/real_kheperaiv_encoder_sensor.cpp
     real_robot/real_kheperaiv_ground_sensor.cpp
     real_robot/real_kheperaiv_lidar_sensor.cpp
     real_robot/real_kheperaiv_proximity_sensor.cpp
@@ -120,6 +124,14 @@ endif(ARGOS_BUILD_FOR_SIMULATOR)
 if(BUZZ_FOUND)
   target_link_libraries(argos3plugin_${ARGOS_BUILD_FOR}_kheperaiv argos3plugin_${ARGOS_BUILD_FOR}_buzz ${BUZZ_LIBRARY})
 endif(BUZZ_FOUND)
+
+#
+# Create battery monitor
+#
+if(ARGOS_BUILD_FOR STREQUAL "khiv")
+  add_executable(battery real_robot/battery.c)
+  target_link_libraries(battery -lkhepera)
+endif(ARGOS_BUILD_FOR STREQUAL "khiv")
 
 #
 # Installation

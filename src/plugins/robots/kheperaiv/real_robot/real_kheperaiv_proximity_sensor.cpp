@@ -19,7 +19,7 @@ CRealKheperaIVProximitySensor::~CRealKheperaIVProximitySensor() {
 #define SETREADING(ARGOSIDX, KH4IDX)                                    \
    m_tReadings[ARGOSIDX].Value = (GetBuffer()[KH4IDX*2] | GetBuffer()[KH4IDX*2+1] << 8) / 65536.0;
 
-void CRealKheperaIVProximitySensor::Do() {
+void CRealKheperaIVProximitySensor::Do(Real f_elapsed_time) {
    kh4_proximity_ir(GetBuffer(), GetDSPic());
    SETREADING(0, 3);
    SETREADING(1, 2);
