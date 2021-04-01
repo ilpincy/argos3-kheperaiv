@@ -77,6 +77,7 @@ if(ARGOS_BUILD_FOR_SIMULATOR)
     simulator/kheperaiv_ultrasound_default_sensor.cpp)
   # Compile the graphical visualization only if the necessary libraries have been found
   if(ARGOS_COMPILE_QTOPENGL)
+    include_directories(${ARGOS_QTOPENGL_INCLUDE_DIRS})
     set(ARGOS3_HEADERS_PLUGINS_ROBOTS_KHEPERAIV_SIMULATOR
       ${ARGOS3_HEADERS_PLUGINS_ROBOTS_KHEPERAIV_SIMULATOR}
       simulator/qtopengl_kheperaiv.h)
