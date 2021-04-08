@@ -76,7 +76,7 @@ if(ARGOS_BUILD_FOR_SIMULATOR)
     simulator/kheperaiv_proximity_default_sensor.cpp
     simulator/kheperaiv_ultrasound_default_sensor.cpp)
   # Compile the graphical visualization only if the necessary libraries have been found
-  if(ARGOS_COMPILE_QTOPENGL)
+  if(ARGOS_QTOPENGL_FOUND)
     include_directories(${ARGOS_QTOPENGL_INCLUDE_DIRS})
     set(ARGOS3_HEADERS_PLUGINS_ROBOTS_KHEPERAIV_SIMULATOR
       ${ARGOS3_HEADERS_PLUGINS_ROBOTS_KHEPERAIV_SIMULATOR}
@@ -85,7 +85,7 @@ if(ARGOS_BUILD_FOR_SIMULATOR)
       ${ARGOS3_SOURCES_PLUGINS_ROBOTS_KHEPERAIV}
       simulator/qtopengl_kheperaiv.h
       simulator/qtopengl_kheperaiv.cpp)
-  endif(ARGOS_COMPILE_QTOPENGL)
+  endif(ARGOS_QTOPENGL_FOUND)
 endif(ARGOS_BUILD_FOR_SIMULATOR)
 if(ARGOS_BUILD_FOR STREQUAL "khiv")
   set(ARGOS3_SOURCES_PLUGINS_ROBOTS_KHEPERAIV
@@ -115,9 +115,9 @@ target_link_libraries(argos3plugin_${ARGOS_BUILD_FOR}_kheperaiv
 if(ARGOS_BUILD_FOR_SIMULATOR)
   target_link_libraries(argos3plugin_${ARGOS_BUILD_FOR}_kheperaiv
     argos3plugin_${ARGOS_BUILD_FOR}_dynamics2d)
-  if(ARGOS_COMPILE_QTOPENGL)
+  if(ARGOS_QTOPENGL_FOUND)
     target_link_libraries(argos3plugin_${ARGOS_BUILD_FOR}_kheperaiv argos3plugin_${ARGOS_BUILD_FOR}_qtopengl)
-  endif(ARGOS_COMPILE_QTOPENGL)
+  endif(ARGOS_QTOPENGL_FOUND)
 else(ARGOS_BUILD_FOR_SIMULATOR)
   target_link_libraries(argos3plugin_${ARGOS_BUILD_FOR}_kheperaiv
     -lkhepera)
