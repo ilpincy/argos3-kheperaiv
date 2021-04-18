@@ -63,11 +63,6 @@ if(APPLE)
   set(CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO "${CMAKE_EXE_LINKER_FLAGS_RELEASE} ${CMAKE_EXE_LINKER_FLAGS_DEBUG}")
 else(APPLE)
   # Linux
-  #
-  # Align doubles for higher performance
-  # Also: required by the PhysX engine
-  #set(ARGOS_PC_CFLAGS -malign-double)
-  add_definitions(${ARGOS_PC_CFLAGS})
   # Avoid discarding unused symbols to allow plugins to work
   set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -Wl,--no-as-needed")
   set(ARGOS_SHARED_LIBRARY_EXTENSION "so")
