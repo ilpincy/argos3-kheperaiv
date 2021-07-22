@@ -1,2 +1,4 @@
 .DS_Store
 build*
+/docker/libkhepera-2.1.tar.bz2
+/docker/poky-glibc-i686-khepera4-image-cortexa8hf-vfp-neon-toolchain-1.8.sh
