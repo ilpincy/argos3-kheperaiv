@@ -5,6 +5,11 @@ set(CMAKE_SYSTEM_PROCESSOR arm)
 # The root directory of the toolchain
 set(CMAKE_SYSROOT /opt/poky/1.8/sysroots/cortexa8hf-vfp-neon-poky-linux-gnueabi)
 
+# The root directory of the toolchain
+set(CMAKE_MODULE_PATH
+  /opt/poky/1.8/sysroots/cortexa8hf-vfp-neon-poky-linux-gnueabi/usr/share/argos3/cmake
+  /opt/poky/1.8/sysroots/cortexa8hf-vfp-neon-poky-linux-gnueabi/usr/share/buzz/cmake)
+
 # The architecture name
 set(TOOLCHAIN_ROOT /opt/poky/1.8/sysroots/i686-pokysdk-linux/usr)
 
@@ -37,10 +42,10 @@ set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
 set(CMAKE_FIND_ROOT_PATH_MODE_PACKAGE ONLY)
 
 # ARGoS settings
-set(ARGOS_BUILD_FOR "khiv")
-set(ARGOS_BUILD_NATIVE OFF)
-set(ARGOS_DYNAMIC_LIBRARY_LOADING OFF)
-set(ARGOS_DOCUMENTATION OFF)
-set(ARGOS_INSTALL_LDSOCONF OFF)
-set(ARGOS_USE_DOUBLE OFF)
-set(ARGOS_THREADSAFE_LOG OFF)
+set(ARGOS_BUILD_FOR "khiv" CACHE STRING "What is ARGoS being built for? \"simulator\" or a robot name (lowercase)")
+set(ARGOS_BUILD_NATIVE OFF CACHE BOOL "ON -> compile with platform-specific optimizations, OFF -> compile to portable binary")
+set(ARGOS_DYNAMIC_LIBRARY_LOADING OFF CACHE BOOL "ON -> compile support for dynamic library loading, OFF -> no support for dynamic library loading")
+set(ARGOS_DOCUMENTATION OFF CACHE BOOL "ON -> compile documentation, OFF -> dont'compile documentation")
+set(ARGOS_INSTALL_LDSOCONF OFF CACHE BOOL "ON -> install argos3.conf in /etc/ld.so.conf/, OFF -> don't")
+set(ARGOS_USE_DOUBLE OFF CACHE BOOL "ON -> use double for Real, OFF -> use float for Real")
+set(ARGOS_THREADSAFE_LOG OFF CACHE BOOL "ON -> compile thread-safe version of log, OFF -> compile thread-unsafe version of log")
