@@ -63,7 +63,6 @@ void CRealKheperaIV::Destroy() {
       CLASSNAME* pcAct =						\
          new CLASSNAME(GetDSPic());					\
       m_vecActuators.push_back(pcAct);					\
-      m_pcController->AddActuator(TAG, pcAct);				\
       LOG << "[INFO] Initialized \"" << TAG << "\" actuator " << std::endl; \
       return pcAct;							\
    }
@@ -84,7 +83,6 @@ CCI_Actuator* CRealKheperaIV::MakeActuator(const std::string& str_name) {
       CLASSNAME* pcSens =						\
          new CLASSNAME(GetDSPic());					\
       m_vecSensors.push_back(pcSens);					\
-      m_pcController->AddSensor(TAG, pcSens);				\
       LOG << "[INFO] Initialized \"" << TAG << "\" sensor " << std::endl; \
       return pcSens;							\
    }
