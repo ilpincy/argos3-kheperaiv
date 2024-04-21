@@ -19,6 +19,7 @@ namespace argos {
 
    static CRange<Real> SENSOR_RANGE(0.0f, 1.0f);
    static CRadians SENSOR_SPACING      = CRadians(ARGOS_PI / 12.0f);
+   static CRadians SENSOR_HALF_SPACING = SENSOR_SPACING * 0.5;
 
    /****************************************/
    /****************************************/
@@ -157,16 +158,17 @@ namespace argos {
                 * Division says how many sensor spacings there are between first sensor and point at which ray hits kheperaiv body
                 * Increase magnitude of result of division to ensure correct rounding
                 */
-               Real fIdx = cAngleLightWrtRobot / SENSOR_SPACING;
+               Real fIdx = (cAngleLightWrtRobot) / SENSOR_SPACING;
                SInt32 nReadingIdx = (fIdx > 0) ? fIdx + 0.5f : fIdx - 0.5f;
+               
                /* Set the actual readings */
                Real fReading = cRobotToLight.Length();
                /*
-                * Take 2 readings before closest sensor and 2 readings after - thus we
+                * Take 6 readings before closest sensor and 6 readings after - thus we
                 * process sensors that are with 180 degrees of intersection of light
                 * ray with robot body
                 */
-               for(SInt32 nIndexOffset = -2; nIndexOffset < 3; ++nIndexOffset) {
+               for(SInt32 nIndexOffset = -4; nIndexOffset < 5; ++nIndexOffset) {
                   UInt32 unIdx = Modulo(nReadingIdx + nIndexOffset, 8);
                   CRadians cAngularDistanceFromOptimalLightReceptionPoint = Abs((cAngleLightWrtRobot - m_tReadings[unIdx].Angle).SignedNormalize());
                   /*
@@ -175,7 +177,8 @@ namespace argos {
                    * 0) to 0 (dist PI/2)
                    */
                   m_tReadings[unIdx].Value += ComputeReading(fReading) * ScaleReading(cAngularDistanceFromOptimalLightReceptionPoint);
-               }
+               }  
+                  
             }
             else {
                /* The ray is occluded */
